@@ -1,0 +1,148 @@
+@import "tailwindcss";
+@import "@fontsource/atkinson-hyperlegible/400.css";
+@import "@fontsource/atkinson-hyperlegible/700.css";
+
+@theme {
+  --color-primary: #d96c4b;
+  --color-background: #fdf8f3;
+  --color-text: #2e2a27;
+  --color-accessibility: #67c6c0;
+  --color-success: #6b9e78;
+
+  --font-sans: "Atkinson Hyperlegible", sans-serif;
+}
+
+@layer base {
+  html {
+    font-size: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-width: 20rem;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus-visible {
+    outline: 0.1875rem solid var(--color-accessibility);
+    outline-offset: 0.25rem;
+  }
+
+  ::selection {
+    background-color: var(--color-primary);
+    color: #ffffff;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    line-height: 1.2;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@layer components {
+  .container {
+    width: min(100% - 2rem, 72rem);
+    margin-inline: auto;
+  }
+
+  .button {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border: 0.125rem solid transparent;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease,
+      transform 150ms ease;
+  }
+
+  .button--primary {
+    background-color: var(--color-primary);
+    color: #ffffff;
+  }
+
+  .button--primary:hover {
+    background-color: #b9573b;
+  }
+
+  .button--primary:active {
+    transform: translateY(0.0625rem);
+  }
+
+  .button--secondary {
+    border-color: var(--color-text);
+    background-color: transparent;
+    color: var(--color-text);
+  }
+
+  .button--secondary:hover {
+    background-color: var(--color-text);
+    color: var(--color-background);
+  }
+
+  .text-link {
+    font-weight: 700;
+    text-decoration-thickness: 0.1em;
+    text-underline-offset: 0.2em;
+  }
+
+  .text-link:hover {
+    color: var(--color-primary);
+  }
+}
+
+@media (min-width: 48rem) {
+  .container {
+    width: min(100% - 4rem, 72rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

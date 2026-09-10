@@ -1,11 +1,35 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-	<Welcome />
+  <section class="container py-16 md:py-24">
+    <div class="max-w-3xl">
+      <p class="mb-4 font-bold text-primary">
+        Clases de computación y celular
+      </p>
+
+      <h1 class="text-4xl font-bold tracking-tight md:text-6xl">
+        Aprende a tu ritmo, sin sentirte perdido.
+      </h1>
+
+      <p class="mt-6 max-w-prose text-xl">
+        Clases particulares para adultos y personas mayores, con paciencia,
+        claridad y sin jerga técnica.
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a class="button button--primary" href="https://wa.me/">
+          Cuéntame qué quieres aprender
+        </a>
+
+        <a
+          class="button button--secondary"
+          href="/sobre-mi/"
+        >
+          Conoce al profe
+        </a>
+      </div>
+    </div>
+  </section>
 </Layout>
