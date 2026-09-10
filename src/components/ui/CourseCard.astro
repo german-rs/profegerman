@@ -1,0 +1,42 @@
+---
+interface Props {
+  titulo: string;
+  nivel: string;
+  duracion: string;
+  resumen: string;
+  temas: string[];
+  href: string;
+}
+
+const { titulo, nivel, duracion, resumen, temas, href } = Astro.props;
+---
+
+<article class="flex flex-col rounded-lg border border-black/10 bg-white/60 p-6">
+  <p class="m-0 text-sm font-bold uppercase tracking-wide text-primary">
+    {nivel}
+  </p>
+
+  <h3 class="mt-2 text-2xl font-bold">{titulo}</h3>
+
+  <p class="mt-3 text-base">{resumen}</p>
+
+  <ul class="mt-4 list-none space-y-2 p-0 text-base">
+    {
+      temas.map((tema) => (
+        <li class="flex items-start gap-2">
+          <span aria-hidden="true">✓</span>
+          <span>{tema}</span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="mt-4 text-sm">
+    <strong>Duración:</strong>
+    {duracion}
+  </p>
+
+  <a class="button button--secondary mt-6 self-start" href={href}>
+    Ver detalles de {titulo}
+  </a>
+</article>

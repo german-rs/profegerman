@@ -1,0 +1,37 @@
+---
+// Copy tomado directo de docs/BRAND_ES.md — "Tres pilares de mensaje".
+// Si se ajusta el copy acá, reflejar el cambio también en ese archivo.
+const pilares = [
+  {
+    titulo: "Paciencia real",
+    texto: "Sin apuro, sin jerga. Vamos a tu ritmo, las veces que haga falta.",
+  },
+  {
+    titulo: "Autonomía",
+    texto:
+      "El objetivo no es que me llames cada vez que tengas una duda — es que aprendas a resolverla sola.",
+  },
+  {
+    titulo: "Accesibilidad de verdad",
+    texto:
+      "Lengua de Señas Chilena (LSCh) y principios WCAG no son un checkbox: son cómo diseño cada clase.",
+  },
+];
+---
+
+<section class="container py-16 md:py-20" aria-labelledby="pilares-titulo">
+  <h2 id="pilares-titulo" class="text-2xl font-bold md:text-3xl">
+    Así trabajo contigo
+  </h2>
+
+  <ul class="mt-8 grid list-none gap-6 p-0 md:grid-cols-3">
+    {
+      pilares.map((pilar) => (
+        <li class="rounded-lg border border-black/10 bg-white/60 p-6">
+          <h3 class="text-xl font-bold">{pilar.titulo}</h3>
+          <p class="mt-2 text-base">{pilar.texto}</p>
+        </li>
+      ))
+    }
+  </ul>
+</section>

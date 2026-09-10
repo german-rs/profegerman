@@ -1,0 +1,23 @@
+---
+import { buildWhatsAppLink } from "../../lib/whatsapp";
+
+interface Props {
+  /** Mensaje precargado en el chat de WhatsApp. Opcional. */
+  message?: string;
+  /** Estilo visual del botón. */
+  variant?: "primary" | "secondary";
+  class?: string;
+}
+
+const { message, variant = "primary", class: className = "" } = Astro.props;
+
+const href = buildWhatsAppLink(message);
+---
+
+<a
+  class={`button button--${variant} ${className}`.trim()}
+  href={href}
+  rel="noopener noreferrer"
+>
+  <slot />
+</a>

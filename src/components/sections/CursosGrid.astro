@@ -1,0 +1,54 @@
+---
+import CourseCard from "../ui/CourseCard.astro";
+
+// Datos estáticos por ahora (content collections quedaron para otra
+// tarea, ver docs/ARCHITECTURE.md). Cuando se arme content.config.ts,
+// este arreglo se reemplaza por Astro.glob / getCollection("cursos")
+// sin tocar CourseCard.astro — la forma de los props ya calza con el
+// schema de la collection documentado en ARCHITECTURE.md.
+const cursos = [
+  {
+    titulo: "Alfabetización digital",
+    nivel: "Nivel 1",
+    duracion: "A coordinar contigo",
+    resumen:
+      "Aprende a usar tu computador o celular desde cero: encender, navegar, escribir y guardar tus archivos, a tu ritmo.",
+    temas: [
+      "Computador y celular",
+      "Internet y navegación",
+      "Correo electrónico",
+      "Guardar y encontrar tus archivos",
+    ],
+    href: "/alfabetizacion-digital/",
+  },
+  {
+    titulo: "Autonomía digital",
+    nivel: "Nivel 2",
+    duracion: "A coordinar contigo",
+    resumen:
+      "Da el siguiente paso: trámites en línea, videollamadas con la familia, WhatsApp y cómo cuidarte de estafas.",
+    temas: [
+      "Trámites en línea",
+      "Videollamadas",
+      "WhatsApp",
+      "Seguridad y estafas comunes",
+    ],
+    href: "/autonomia-digital/",
+  },
+];
+---
+
+<section class="container py-16 md:py-20" aria-labelledby="cursos-titulo">
+  <h2 id="cursos-titulo" class="text-2xl font-bold md:text-3xl">
+    Elige por dónde partir
+  </h2>
+
+  <p class="mt-2 max-w-prose text-base">
+    Si nunca has usado un computador o celular, parte por alfabetización.
+    Si ya te manejas con lo básico, autonomía es tu siguiente paso.
+  </p>
+
+  <div class="mt-8 grid gap-6 md:grid-cols-2">
+    {cursos.map((curso) => <CourseCard {...curso} />)}
+  </div>
+</section>
