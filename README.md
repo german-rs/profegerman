@@ -86,30 +86,27 @@ el schema de la collection `cursos` documentado en
 
 En orden sugerido, pero no bloqueante — Germán decide el orden real:
 
-1. **Número real de WhatsApp** — reemplazar el placeholder en
-   `src/lib/whatsapp.ts` (`WHATSAPP_NUMBER`). Es lo único que impide
-   que los CTA actuales funcionen de verdad.
-2. **Páginas núcleo faltantes** — `/alfabetizacion-digital/`,
+1. **Páginas núcleo faltantes** — `/alfabetizacion-digital/`,
    `/autonomia-digital/`, `/accesibilidad/`, `/sobre-mi/`, `/blog/`.
    Mientras no existan, los links del Grid de cursos y de la franja
    de accesibilidad en la Home apuntan a rutas que dan 404.
-3. **Header/Footer completos** — hoy son una versión reducida. Falta
+2. **Header/Footer completos** — hoy son una versión reducida. Falta
    el nav de 6 links + CTA y el footer con CTA de WhatsApp y enlace a
    `/clases-inteligencia-artificial/` que define `ARCHITECTURE.md`
    v1.1. Depende del punto 2 (no tiene sentido linkear a páginas que
    no existen).
-4. **Content collections** (`src/content.config.ts`) — `cursos`,
+3. **Content collections** (`src/content.config.ts`) — `cursos`,
    `testimonios`, `blog`, con el schema ya definido en
    `docs/ARCHITECTURE.md`.
-5. **Testimonios reales** — pendiente selección y consentimiento
+4. **Testimonios reales** — pendiente selección y consentimiento
    (ver `ARCHITECTURE.md`). La sección `TestimoniosSection` se agrega
    a la Home recién cuando exista contenido real; no se fabricó
    contenido de ejemplo a propósito.
-6. **Primeros posts de blog** — una vez que haya al menos un artículo,
+5. **Primeros posts de blog** — una vez que haya al menos un artículo,
    se activa `BlogPreview` en la Home.
-7. **Páginas satélite SEO** — construir en el orden ya definido en
+6. **Páginas satélite SEO** — construir en el orden ya definido en
    `docs/ARCHITECTURE.md` (Ahora → Pronto → Eventual), no todas de una.
-8. **Fase 2** (no construir aún) — herramientas digitales para el
+7. **Fase 2** (no construir aún) — herramientas digitales para el
    trabajo y para emprendedores. Ver roadmap en `ARCHITECTURE.md`.
 
 ## Desarrollo local
