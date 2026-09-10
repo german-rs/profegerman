@@ -1,35 +1,35 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Hero from "../components/sections/Hero.astro";
+import PilaresMensaje from "../components/sections/PilaresMensaje.astro";
+import CursosGrid from "../components/sections/CursosGrid.astro";
+import AccesibilidadBanner from "../components/sections/AccesibilidadBanner.astro";
+import WhatsAppCTA from "../components/ui/WhatsAppCTA.astro";
 ---
 
 <Layout>
-  <section class="container py-16 md:py-24">
-    <div class="max-w-3xl">
-      <p class="mb-4 font-bold text-primary">
-        Clases de computación y celular
-      </p>
+  <Hero />
+  <PilaresMensaje />
+  <CursosGrid />
+  <AccesibilidadBanner />
 
-      <h1 class="text-4xl font-bold tracking-tight md:text-6xl">
-        Aprende a tu ritmo, sin sentirte perdido.
-      </h1>
+  <section
+    class="container py-16 text-center md:py-20"
+    aria-labelledby="cta-final-titulo"
+  >
+    <h2 id="cta-final-titulo" class="text-2xl font-bold md:text-3xl">
+      ¿Empezamos?
+    </h2>
 
-      <p class="mt-6 max-w-prose text-xl">
-        Clases particulares para adultos y personas mayores, con paciencia,
-        claridad y sin lenguaje técnico.
-      </p>
+    <p class="mx-auto mt-3 max-w-prose text-base">
+      Escríbeme y cuéntame qué te gustaría aprender. Vemos juntos por dónde
+      partir.
+    </p>
 
-      <div class="mt-8 flex flex-wrap gap-4">
-        <a class="button button--primary" href="https://wa.me/">
-          Cuéntame qué quieres aprender
-        </a>
-
-        <a
-          class="button button--secondary"
-          href="/sobre-mi/"
-        >
-          Conoce al profe
-        </a>
-      </div>
+    <div class="mt-6 flex justify-center">
+      <WhatsAppCTA message="Hola profe, quiero saber más de las clases">
+        Escríbeme por WhatsApp
+      </WhatsAppCTA>
     </div>
   </section>
 </Layout>
