@@ -1,0 +1,45 @@
+---
+import WhatsAppCTA from "../ui/WhatsAppCTA.astro";
+
+interface Props {
+  kicker?: string;
+  titulo: string;
+  subtitulo: string;
+  ctaMensaje: string;
+  ctaTexto: string;
+  secondaryHref?: string;
+  secondaryTexto?: string;
+}
+
+const {
+  kicker,
+  titulo,
+  subtitulo,
+  ctaMensaje,
+  ctaTexto,
+  secondaryHref,
+  secondaryTexto,
+} = Astro.props;
+---
+
+<section class="container py-16 md:py-24">
+  <div class="max-w-3xl">
+    {kicker && <p class="mb-4 font-bold text-primary">{kicker}</p>}
+
+    <h1 class="text-4xl font-bold tracking-tight md:text-5xl">{titulo}</h1>
+
+    <p class="mt-6 max-w-prose text-xl">{subtitulo}</p>
+
+    <div class="mt-8 flex flex-wrap gap-4">
+      <WhatsAppCTA message={ctaMensaje}>{ctaTexto}</WhatsAppCTA>
+
+      {
+        secondaryHref && secondaryTexto && (
+          <a class="button button--secondary" href={secondaryHref}>
+            {secondaryTexto}
+          </a>
+        )
+      }
+    </div>
+  </div>
+</section>

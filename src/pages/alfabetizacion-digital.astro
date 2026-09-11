@@ -1,0 +1,84 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/sections/PageHero.astro";
+import ParaQuienSection from "../components/sections/ParaQuienSection.astro";
+import TemasCubiertosSection from "../components/sections/TemasCubiertosSection.astro";
+import CTAWhatsAppBanner from "../components/sections/CTAWhatsAppBanner.astro";
+
+const temas = [
+  {
+    titulo: "Computador y celular",
+    descripcion:
+      "Enciende, apaga y navega con confianza, ya sea en computador o celular.",
+  },
+  {
+    titulo: "Internet y navegación",
+    descripcion:
+      "Aprende a buscar información y moverte por internet sin perderte.",
+  },
+  {
+    titulo: "Correo electrónico",
+    descripcion:
+      "Crea y usa tu correo: enviar, recibir y responder mensajes.",
+  },
+  {
+    titulo: "Guardar y encontrar tus archivos",
+    descripcion:
+      "Guarda tus fotos y documentos donde después puedas encontrarlos.",
+  },
+];
+
+const paraQuienItems = [
+  "Nunca has usado un computador o querías aprender pero no sabías por dónde partir.",
+  "Sientes que la tecnología avanza más rápido de lo que puedes seguirle el ritmo.",
+  "Quieres aprender sin que te hagan sentir apurado o juzgado.",
+  "Prefieres ir paso a paso, repitiendo las veces que haga falta.",
+];
+
+const ctaMensaje = "Hola profe, quiero aprender alfabetización digital.";
+---
+
+<Layout
+  title="Alfabetización digital para adultos y personas mayores | Profe Germán"
+  description="Clases de alfabetización digital: computador, celular, internet y correo, a tu ritmo y sin jerga. Escríbeme por WhatsApp y partimos cuando quieras."
+>
+  <PageHero
+    kicker="Curso para empezar desde cero"
+    titulo="Alfabetización digital"
+    subtitulo="Aprende a usar tu computador o celular desde cero: encender, navegar, escribir y guardar tus archivos. Paso a paso, a tu ritmo."
+    ctaMensaje={ctaMensaje}
+    ctaTexto="Quiero aprender esto"
+    secondaryHref="/autonomia-digital/"
+    secondaryTexto="¿Ya sabes lo básico? Conoce el siguiente nivel"
+  />
+
+  <ParaQuienSection items={paraQuienItems} />
+
+  <TemasCubiertosSection temas={temas} />
+
+  <section
+    class="border-y border-black/10 bg-accessibility/10"
+    aria-labelledby="accesibilidad-nota-titulo"
+  >
+    <div class="container py-10">
+      <h2 id="accesibilidad-nota-titulo" class="text-xl font-bold">
+        ¿Tienes dificultades auditivas?
+      </h2>
+
+      <p class="mt-2 max-w-prose text-base">
+        También hago clases en Lengua de Señas Chilena (LSCh).
+        <a class="text-link" href="/accesibilidad/">
+          Conoce más sobre accesibilidad
+        </a>
+        .
+      </p>
+    </div>
+  </section>
+
+  <CTAWhatsAppBanner
+    titulo="¿Empezamos con alfabetización digital?"
+    texto="Escríbeme y cuéntame qué te gustaría aprender primero."
+    ctaMensaje={ctaMensaje}
+    ctaTexto="Escríbeme por WhatsApp"
+  />
+</Layout>

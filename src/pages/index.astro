@@ -4,7 +4,7 @@ import Hero from "../components/sections/Hero.astro";
 import PilaresMensaje from "../components/sections/PilaresMensaje.astro";
 import CursosGrid from "../components/sections/CursosGrid.astro";
 import AccesibilidadBanner from "../components/sections/AccesibilidadBanner.astro";
-import WhatsAppCTA from "../components/ui/WhatsAppCTA.astro";
+import CTAWhatsAppBanner from "../components/sections/CTAWhatsAppBanner.astro";
 ---
 
 <Layout>
@@ -13,23 +13,10 @@ import WhatsAppCTA from "../components/ui/WhatsAppCTA.astro";
   <CursosGrid />
   <AccesibilidadBanner />
 
-  <section
-    class="container py-16 text-center md:py-20"
-    aria-labelledby="cta-final-titulo"
-  >
-    <h2 id="cta-final-titulo" class="text-2xl font-bold md:text-3xl">
-      ¿Empezamos?
-    </h2>
-
-    <p class="mx-auto mt-3 max-w-prose text-base">
-      Escríbeme y cuéntame qué te gustaría aprender. Vemos juntos por dónde
-      partir.
-    </p>
-
-    <div class="mt-6 flex justify-center">
-      <WhatsAppCTA message="Hola profe, quiero saber más de las clases">
-        Escríbeme por WhatsApp
-      </WhatsAppCTA>
-    </div>
-  </section>
+  <CTAWhatsAppBanner
+    titulo="¿Empezamos?"
+    texto="Escríbeme y cuéntame qué te gustaría aprender. Vemos juntos por dónde partir."
+    ctaMensaje="Hola profe, quiero saber más de las clases"
+    ctaTexto="Escríbeme por WhatsApp"
+  />
 </Layout>

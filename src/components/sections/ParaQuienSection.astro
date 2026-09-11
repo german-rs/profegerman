@@ -1,0 +1,27 @@
+---
+interface Props {
+  titulo?: string;
+  items: string[];
+}
+
+const { titulo = "¿Para quién es este curso?", items } = Astro.props;
+---
+
+<section class="container py-16 md:py-20" aria-labelledby="para-quien-titulo">
+  <h2 id="para-quien-titulo" class="text-2xl font-bold md:text-3xl">
+    {titulo}
+  </h2>
+
+  <ul class="mt-8 grid list-none gap-4 p-0 md:grid-cols-2">
+    {
+      items.map((item) => (
+        <li class="flex items-start gap-3 rounded-lg border border-black/10 bg-white/60 p-5 text-base">
+          <span aria-hidden="true" class="font-bold text-primary">
+            ✓
+          </span>
+          <span>{item}</span>
+        </li>
+      ))
+    }
+  </ul>
+</section>
