@@ -1,0 +1,16 @@
+---
+// src/components/ui/HeroIllustration.astro
+import { Image } from 'astro:assets';
+import heroPersona from '/public/illustrations/hero-persona.webp';
+---
+
+<div class="relative mx-auto flex w-full max-w-sm items-center justify-center lg:max-w-none">
+
+  <Image
+    src={heroPersona}
+    alt="Ilustración de una persona sentada frente a un notebook, con postura relajada y tranquila"
+    width={480}
+    height={600}
+    class="relative w-full max-w-[280px] sm:max-w-[320px] lg:max-w-[380px]"
+  />
+</div>

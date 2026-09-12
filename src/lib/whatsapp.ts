@@ -1,6 +1,3 @@
-// TODO(Germán): reemplazar con el número real de WhatsApp.
-// Formato: código de país + número, sin "+", sin espacios ni guiones.
-// Ejemplo Chile: "56912345678"
 export const WHATSAPP_NUMBER = "56982960453";
 
 /**
