@@ -12,6 +12,18 @@
   --font-sans: "Atkinson Hyperlegible", sans-serif;
 }
 
+/*
+ * "container" es un nombre reservado por Tailwind v4 (trae su propia
+ * utilidad nativa sin padding ni centrado automático). Para
+ * sobrescribirla correctamente hay que usar @utility, no @layer
+ * components — de lo contrario la utilidad nativa de Tailwind gana
+ * en la cascada y esta regla se ignora en silencio.
+ */
+@utility container {
+  width: min(100% - 2rem, 72rem);
+  margin-inline: auto;
+}
+
 @layer base {
   html {
     font-size: 100%;
@@ -67,11 +79,6 @@
 }
 
 @layer components {
-  .container {
-    width: min(100% - 3rem, 72rem);
-    margin-inline: auto;
-  }
-
   .button {
     display: inline-flex;
     min-height: 2.75rem;
