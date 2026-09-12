@@ -68,7 +68,7 @@
 
 @layer components {
   .container {
-    width: min(100% - 2rem, 72rem);
+    width: min(100% - 3rem, 72rem);
     margin-inline: auto;
   }
 

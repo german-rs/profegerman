@@ -55,7 +55,7 @@ una duda — es que aprendas a resolverla sola."*
 | "No necesitas saber nada de computación." | "Partimos desde donde tú estás hoy." |
 
 ## Tagline
-**Elegida (working):** "Aprende a tu ritmo, sin sentirte perdido."
+**Elegida (working):** "Aprende a tu ritmo, paso a paso y con confianza"
 — ya validada implícitamente por el aviso de Superprof; nombra la
 emoción exacta que resuelve, no solo la habilidad. **Pendiente
 confirmación final de Germán.**
@@ -66,10 +66,9 @@ Alternativas guardadas:
 - "Clases de computación y celular, pensadas para ti."
 
 ## Tres pilares de mensaje
-1. **Paciencia real** — sin apuro, sin jerga.
-2. **Autonomía** — el objetivo es que dejes de necesitarme para lo básico.
-3. **Accesibilidad de verdad** — LSCh y WCAG no son un checkbox, son cómo
-   se diseña la clase.
+1. **Paciencia** — Con calma y a tu ritmo, las veces que sea necesario.
+2. **Autonomía** — Vas a ganar independencia para resolver tus dudas.
+3. **Accesibilidad** — Diseño cada clase según tus habilidades y capacidades.
 
 ## Anti-patrones (no hacer)
 - No decir "es fácil/simple".
