@@ -3,18 +3,16 @@
 // Si se ajusta el copy acá, reflejar el cambio también en ese archivo.
 //
 // Color asignado a cada tarjeta (dentro de la paleta ya definida en
-// docs/WEB_STYLE_GUIDE_profegerman_v1.0.md — no se agregan colores nuevos):
-// - Paciencia      → primario cálido (terracota), el acento principal de marca.
+// docs/WEB_STYLE_GUIDE_profegerman_v1.0.md):
+// - Paciencia      → lila polvo, acento secundario agregado a la guía
+//                    para diferenciarla del terracota (que queda como
+//                    color de acción/CTA en todo el sitio).
 // - Autonomía      → confirmación (verde), el mismo tono que el sitio usa
 //                    para estados de logro; coherente con "ganar independencia".
 // - Accesibilidad  → accesibilidad (teal), reservado exclusivamente para
 //                    este tema en todo el sitio.
-//
-// La captura de referencia usa un cuarto tono (púrpura) que no existe en
-// la paleta actual — si se prefiere esa variante, hay que sumarla antes
-// al WEB_STYLE_GUIDE.
 
-type PilarColor = "primary" | "success" | "accessibility";
+type PilarColor = "primary" | "success" | "accessibility" | "lilac";
 
 interface Pilar {
   titulo: string;
@@ -26,7 +24,7 @@ const pilares: Pilar[] = [
   {
     titulo: "Paciencia",
     texto: "Con calma y a tu ritmo, las veces que sea necesario.",
-    color: "primary",
+    color: "lilac",
   },
   {
     titulo: "Autonomía",
@@ -46,6 +44,7 @@ const estilos: Record<PilarColor, { card: string; icon: string }> = {
   primary: { card: "bg-primary/15", icon: "text-primary" },
   success: { card: "bg-success/15", icon: "text-success" },
   accessibility: { card: "bg-accessibility/15", icon: "text-accessibility" },
+  lilac: { card: "bg-lilac/15", icon: "text-lilac" },
 };
 ---
 
@@ -62,7 +61,7 @@ const estilos: Record<PilarColor, { card: string; icon: string }> = {
             aria-hidden="true"
             class="flex h-12 w-12 items-center justify-center rounded-full bg-background"
           >
-            {pilar.color === "primary" && (
+            {pilar.color === "lilac" && (
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -92,7 +91,7 @@ const estilos: Record<PilarColor, { card: string; icon: string }> = {
               </svg>
             )}
 
-            {pilar.color === "accessibility" && (
+                       {pilar.color === "accessibility" && (
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -102,12 +101,13 @@ const estilos: Record<PilarColor, { card: string; icon: string }> = {
                 stroke-linejoin="round"
                 class={`h-6 w-6 ${estilos[pilar.color].icon}`}
               >
-                <line x1="4" y1="6" x2="20" y2="6" />
-                <circle cx="9" cy="6" r="2" />
-                <line x1="4" y1="12" x2="20" y2="12" />
-                <circle cx="15" cy="12" r="2" />
-                <line x1="4" y1="18" x2="20" y2="18" />
-                <circle cx="11" cy="18" r="2" />
+                <circle cx="12" cy="12" r="9" />
+                <circle cx="12" cy="7" r="1.4" fill="currentColor" stroke="none" />
+                <path d="M12 8.8v4.5" />
+                <path d="M12 10.2L8 7.6" />
+                <path d="M12 10.2L16 7.6" />
+                <path d="M12 13.3L9 17" />
+                <path d="M12 13.3L15 17" />
               </svg>
             )}
           </span>
