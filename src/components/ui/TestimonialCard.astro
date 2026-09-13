@@ -1,0 +1,45 @@
+---
+interface Props {
+  nombre: string;
+  curso?: string;
+  cita: string;
+  logro: string;
+}
+
+const { nombre, curso, cita, logro } = Astro.props;
+
+// Iniciales como placeholder visual mientras no hay foto real con
+// consentimiento (ver docs/WEB_STYLE_GUIDE_profegerman_v1.0.md —
+// nunca fotografía stock genérica). Cuando Germán agregue la foto,
+// esto se reemplaza por <Image /> vía astro:assets.
+const iniciales = nombre
+  .split(" ")
+  .filter(Boolean)
+  .slice(0, 2)
+  .map((palabra) => palabra[0])
+  .join("")
+  .toUpperCase();
+---
+
+<article class="flex h-full flex-col rounded-lg border border-black/10 bg-white/60 p-6">
+  <div class="flex items-center gap-4">
+    <span
+      aria-hidden="true"
+      class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-primary/15 text-lg font-bold text-primary"
+    >
+      {iniciales}
+    </span>
+
+    <div>
+      <p class="m-0 font-bold">{nombre}</p>
+      {curso && <p class="m-0 text-sm text-text/70">{curso}</p>}
+    </div>
+  </div>
+
+  <p class="mt-4 flex-1 text-base italic">“{cita}”</p>
+
+  <p class="mt-4 inline-flex w-fit items-center gap-2 rounded-full bg-success/15 px-3 py-1 text-sm font-bold text-success">
+    <span aria-hidden="true">✓</span>
+    {logro}
+  </p>
+</article>

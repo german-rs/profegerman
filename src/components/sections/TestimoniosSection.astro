@@ -1,0 +1,218 @@
+---
+import TestimonialCard from "../ui/TestimonialCard.astro";
+
+// PLACEHOLDER: reemplazar estos 5 testimonios por los reales
+// (nombre, cita, logro, curso, calificación — y foto cuando exista
+// consentimiento). La forma de los datos ya calza con el schema de la
+// futura collection "testimonios" documentado en docs/ARCHITECTURE.md.
+const testimonios = [
+  {
+    nombre: "María Elena Soto",
+    curso: "Alfabetización digital",
+    cita: "Nunca pensé que iba a poder mandarle fotos a mis nietos por WhatsApp. El profe me explicó todo con harta paciencia.",
+    logro: "Ahora hace videollamadas con sus nietos",
+    calificacion: 5,
+  },
+  {
+    nombre: "Jorge Muñoz",
+    curso: "Alfabetización digital",
+    cita: "Llevaba meses buscando trabajo y no sabía ni cómo adjuntar mi CV a un correo. Ahora postulo yo solo.",
+    logro: "Aprendió a postular a trabajos por internet",
+    calificacion: 5,
+  },
+  {
+    nombre: "Ana Belén Rivas",
+    curso: "Autonomía digital",
+    cita: "Como soy sorda, siempre me costó encontrar clases donde me entendieran bien. Acá pude aprender en Lengua de Señas, a mi ritmo.",
+    logro: "Hace sus trámites en línea de forma independiente",
+    calificacion: 5,
+  },
+  {
+    nombre: "Rosa Elvira Pizarro",
+    curso: "Alfabetización digital",
+    cita: "Le tenía miedo al computador, pensaba que iba a echar a perder algo. Ahora hasta le enseño cosas a mi marido.",
+    logro: "Perdió el miedo a usar el computador",
+    calificacion: 5,
+  },
+  {
+    nombre: "Sergio Contreras",
+    curso: "Autonomía digital",
+    cita: "Vivo solo y mis hijos están en el sur. Aprender a hacer videollamadas cambió harto mi semana.",
+    logro: "Se videollama con su familia todas las semanas",
+    calificacion: 5,
+  },
+];
+---
+
+<section
+  class="bg-primary/5 py-16 md:py-20"
+  aria-labelledby="testimonios-titulo"
+>
+  <div class="container">
+    <h2 id="testimonios-titulo" class="text-2xl font-bold md:text-3xl">
+      Lo que cuentan quienes ya tomaron clases
+    </h2>
+
+    <p class="mt-2 max-w-prose text-base">
+      Alumnos que ya avanzaron a su ritmo, cada uno con su propio objetivo.
+    </p>
+  </div>
+
+  <div class="container relative mt-8">
+    <ul
+      id="testimonios-track"
+      role="region"
+      aria-label="Testimonios de alumnos. Usa las flechas o desliza para ver más"
+      tabindex="0"
+      class="testimonios-track flex list-none gap-6 overflow-x-auto p-0 pb-2"
+    >
+      {
+        testimonios.map((testimonio) => (
+          <li class="w-[85%] shrink-0 snap-start sm:w-[55%] lg:w-[34%]">
+            <TestimonialCard {...testimonio} />
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-6 flex justify-center gap-3">
+      <button
+        type="button"
+        id="testimonios-prev"
+        class="flex h-11 w-11 items-center justify-center rounded-full border-2 border-text motion-safe:transition-colors hover:bg-text hover:text-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text"
+        aria-label="Ver testimonio anterior"
+      >
+        <span aria-hidden="true">←</span>
+      </button>
+
+      <button
+        type="button"
+        id="testimonios-play-pause"
+        class="flex h-11 w-11 items-center justify-center rounded-full border-2 border-text motion-safe:transition-colors hover:bg-text hover:text-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text"
+      >
+        <span aria-hidden="true" id="testimonios-play-pause-icon">⏸</span>
+      </button>
+
+      <button
+        type="button"
+        id="testimonios-next"
+        class="flex h-11 w-11 items-center justify-center rounded-full border-2 border-text motion-safe:transition-colors hover:bg-text hover:text-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text"
+        aria-label="Ver siguiente testimonio"
+      >
+        <span aria-hidden="true">→</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  /*
+   * Carrusel con avance automático (ver script abajo). Se pausa al
+   * pasar el mouse o el foco por encima, tiene botón de pausa manual,
+   * y no arranca si la persona tiene activado prefers-reduced-motion
+   * en su sistema — así cumple con el checklist de accesibilidad de
+   * WEB_STYLE_GUIDE_profegerman_v1.0.md sin perder el movimiento.
+   */
+  .testimonios-track {
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+
+  .testimonios-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .testimonios-track {
+      scroll-behavior: auto;
+    }
+  }
+</style>
+
+<script>
+  const AUTOPLAY_DELAY_MS = 5000;
+
+  const track = document.getElementById("testimonios-track");
+  const prevBtn = document.getElementById("testimonios-prev");
+  const nextBtn = document.getElementById("testimonios-next");
+  const playPauseBtn = document.getElementById("testimonios-play-pause");
+  const playPauseIcon = document.getElementById("testimonios-play-pause-icon");
+
+  if (track && prevBtn && nextBtn && playPauseBtn && playPauseIcon) {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    let autoplayTimer: ReturnType<typeof window.setInterval> | undefined;
+    let isPlaying = !prefersReducedMotion;
+
+    const getCardDistance = () => {
+      const card = track.querySelector("li");
+      if (!card) return 0;
+
+      const trackStyles = window.getComputedStyle(track);
+      const gap = parseFloat(trackStyles.columnGap || trackStyles.gap || "0");
+      return card.clientWidth + gap;
+    };
+
+    const isAtEnd = () =>
+      track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+
+    const scrollByCard = (direction: number) => {
+      const distance = getCardDistance();
+      if (!distance) return;
+
+      // Al llegar al final, el siguiente "avanzar" vuelve al inicio
+      // en vez de intentar seguir de largo (loop del carrusel).
+      if (direction > 0 && isAtEnd()) {
+        track.scrollTo({ left: 0, behavior: "smooth" });
+        return;
+      }
+
+      track.scrollBy({ left: distance * direction, behavior: "smooth" });
+    };
+
+    const updatePlayPauseButton = () => {
+      playPauseBtn.setAttribute(
+        "aria-label",
+        isPlaying
+          ? "Pausar avance automático de testimonios"
+          : "Reanudar avance automático de testimonios"
+      );
+      playPauseIcon.textContent = isPlaying ? "⏸" : "▶";
+    };
+
+    const stopAutoplay = () => {
+      window.clearInterval(autoplayTimer);
+    };
+
+    const startAutoplay = () => {
+      stopAutoplay();
+      if (!isPlaying) return;
+      autoplayTimer = window.setInterval(
+        () => scrollByCard(1),
+        AUTOPLAY_DELAY_MS
+      );
+    };
+
+    playPauseBtn.addEventListener("click", () => {
+      isPlaying = !isPlaying;
+      updatePlayPauseButton();
+      isPlaying ? startAutoplay() : stopAutoplay();
+    });
+
+    prevBtn.addEventListener("click", () => scrollByCard(-1));
+    nextBtn.addEventListener("click", () => scrollByCard(1));
+
+    // Pausa al pasar el mouse o el foco de teclado por encima del
+    // carrusel (flechas incluidas), y retoma al salir.
+    track.addEventListener("pointerenter", stopAutoplay);
+    track.addEventListener("pointerleave", startAutoplay);
+    track.addEventListener("focusin", stopAutoplay);
+    track.addEventListener("focusout", startAutoplay);
+
+    updatePlayPauseButton();
+    startAutoplay();
+  }
+</script>
