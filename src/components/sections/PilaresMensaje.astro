@@ -1,22 +1,52 @@
 ---
 // Copy tomado directo de docs/BRAND_ES.md — "Tres pilares de mensaje".
 // Si se ajusta el copy acá, reflejar el cambio también en ese archivo.
-const pilares = [
+//
+// Color asignado a cada tarjeta (dentro de la paleta ya definida en
+// docs/WEB_STYLE_GUIDE_profegerman_v1.0.md — no se agregan colores nuevos):
+// - Paciencia      → primario cálido (terracota), el acento principal de marca.
+// - Autonomía      → confirmación (verde), el mismo tono que el sitio usa
+//                    para estados de logro; coherente con "ganar independencia".
+// - Accesibilidad  → accesibilidad (teal), reservado exclusivamente para
+//                    este tema en todo el sitio.
+//
+// La captura de referencia usa un cuarto tono (púrpura) que no existe en
+// la paleta actual — si se prefiere esa variante, hay que sumarla antes
+// al WEB_STYLE_GUIDE.
+
+type PilarColor = "primary" | "success" | "accessibility";
+
+interface Pilar {
+  titulo: string;
+  texto: string;
+  color: PilarColor;
+}
+
+const pilares: Pilar[] = [
   {
     titulo: "Paciencia",
     texto: "Con calma y a tu ritmo, las veces que sea necesario.",
+    color: "primary",
   },
   {
     titulo: "Autonomía",
-    texto:
-      "Vas a ganar independencia para resolver tus dudas.",
+    texto: "Vas a ganar independencia para resolver tus dudas.",
+    color: "success",
   },
   {
     titulo: "Accesibilidad",
-    texto:
-      "Diseño cada clase según tus habilidades y capacidades.",
+    texto: "Diseño cada clase según tus habilidades y capacidades.",
+    color: "accessibility",
   },
 ];
+
+// Clases completas (no interpoladas con template literals sueltos) para
+// que Tailwind las detecte en el build. No partir estos strings.
+const estilos: Record<PilarColor, { card: string; icon: string }> = {
+  primary: { card: "bg-primary/15", icon: "text-primary" },
+  success: { card: "bg-success/15", icon: "text-success" },
+  accessibility: { card: "bg-accessibility/15", icon: "text-accessibility" },
+};
 ---
 
 <section class="container py-16 md:py-20" aria-labelledby="pilares-titulo">
@@ -27,8 +57,62 @@ const pilares = [
   <ul class="mt-8 grid list-none gap-6 p-0 md:grid-cols-3">
     {
       pilares.map((pilar) => (
-        <li class="rounded-lg border border-black/10 bg-white/60 p-6">
-          <h3 class="text-xl font-bold">{pilar.titulo}</h3>
+        <li class={`rounded-lg p-6 ${estilos[pilar.color].card}`}>
+          <span
+            aria-hidden="true"
+            class="flex h-12 w-12 items-center justify-center rounded-full bg-background"
+          >
+            {pilar.color === "primary" && (
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class={`h-6 w-6 ${estilos[pilar.color].icon}`}
+              >
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3.5 2" />
+              </svg>
+            )}
+
+            {pilar.color === "success" && (
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class={`h-6 w-6 ${estilos[pilar.color].icon}`}
+              >
+                <circle cx="12" cy="12" r="9" />
+                <path d="M8 12.5l2.5 2.5L16 9" />
+              </svg>
+            )}
+
+            {pilar.color === "accessibility" && (
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class={`h-6 w-6 ${estilos[pilar.color].icon}`}
+              >
+                <line x1="4" y1="6" x2="20" y2="6" />
+                <circle cx="9" cy="6" r="2" />
+                <line x1="4" y1="12" x2="20" y2="12" />
+                <circle cx="15" cy="12" r="2" />
+                <line x1="4" y1="18" x2="20" y2="18" />
+                <circle cx="11" cy="18" r="2" />
+              </svg>
+            )}
+          </span>
+
+          <h3 class="mt-4 text-xl font-bold">{pilar.titulo}</h3>
           <p class="mt-2 text-base">{pilar.texto}</p>
         </li>
       ))
