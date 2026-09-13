@@ -1,0 +1,58 @@
+---
+import WhatsAppCTA from "../ui/WhatsAppCTA.astro";
+
+interface Props {
+  links: { href: string; label: string }[];
+}
+
+const { links } = Astro.props;
+---
+
+<!-- Menú móvil: <details>/<summary> nativo, sin JavaScript -->
+<details class="relative shrink-0 md:hidden">
+  <summary
+    class="flex min-h-11 min-w-11 cursor-pointer list-none items-center gap-2 rounded-md px-2 font-bold [&::-webkit-details-marker]:hidden"
+  >
+    <svg
+      aria-hidden="true"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+    >
+      <line x1="3" y1="6" x2="21" y2="6" />
+      <line x1="3" y1="12" x2="21" y2="12" />
+      <line x1="3" y1="18" x2="21" y2="18" />
+    </svg>
+    Menú
+  </summary>
+
+  <nav
+    aria-label="Navegación principal"
+    class="absolute right-0 top-full z-20 mt-2 w-56 rounded-lg border border-black/10 bg-background p-4 shadow-lg"
+  >
+    <ul class="flex list-none flex-col gap-1 p-0">
+      {
+        links.map((link) => (
+          <li>
+            <a class="text-link flex min-h-11 items-center" href={link.href}>
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+
+      <li class="pt-2">
+        <WhatsAppCTA
+          message="Hola profe, quiero saber más de las clases"
+          class="w-full justify-center"
+        >
+          WhatsApp
+        </WhatsAppCTA>
+      </li>
+    </ul>
+  </nav>
+</details>
