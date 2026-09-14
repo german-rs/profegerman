@@ -1,28 +1,44 @@
 # profegerman.cl
 
 Sitio web de **Profe Germán** — clases de computación, celular y
-alfabetización digital para adultos, personas mayores y quien quiera
-sentirse cómodo con la tecnología, sin apuro y sin jerga.
+alfabetización digital para adultos, personas mayores y quien quiera sentirse cómodo con la tecnología, a su propio ritmo y en un lenguaje claro y cercano.
+
+**Sitio en vivo:** [profegerman.cl](https://profegerman.cl)
+
+## Vista previa
+
+[![Vista previa de la home de Profe Germán](docs/screenshots/screenshot-hero-profegerman.webp)](https://profegerman.cl)
 
 ## Estado actual
 
-La Home está construida y compila sin errores. La estructura de
-componentes ya sigue la organización definida en `docs/ARCHITECTURE.md`
-(`layout/`, `sections/`, `ui/`). Lo que existe hoy:
+La Home y la primera página de curso están construidas y compilan sin
+errores. La estructura de componentes sigue la organización definida
+en `docs/ARCHITECTURE.md` (`layout/`, `sections/`, `ui/`). Lo que
+existe hoy:
 
 - **Layout base** — `Layout.astro` con skip link, `Header`, `<main>`,
-  `Footer`. Tema de marca aplicado (`WEB_STYLE_GUIDE_profegerman_v1.0.md`):
-  paleta, tipografía Atkinson Hyperlegible, `prefers-reduced-motion`.
+  `Footer` y un botón flotante de WhatsApp (`WhatsAppFloatingButton.astro`)
+  visible en todas las páginas. Tema de marca aplicado
+  (`WEB_STYLE_GUIDE_profegerman_v1.0.md`): paleta, tipografía Atkinson
+  Hyperlegible, `prefers-reduced-motion`.
 - **Home (`/`) completa**: Hero → Pilares de mensaje → Grid de cursos
-  (Alfabetización / Autonomía digital) → Franja de accesibilidad/LSCh →
-  CTA final de WhatsApp.
+  (Alfabetización / Autonomía digital) → Franja de accesibilidad/LSCh
+  → Testimonios (con datos de ejemplo mientras se consiguen
+  testimonios reales con consentimiento) → CTA final de WhatsApp.
+- **`/alfabetizacion-digital/` completa**: Hero de página, "Para
+  quién es este curso", temas cubiertos, nota de accesibilidad/LSCh
+  y CTA de WhatsApp propio.
+- **Header** con nav de escritorio + menú móvil nativo (`MobileNav.astro`,
+  `<details>/<summary>`, sin JavaScript).
 - **WhatsApp centralizado** en `src/lib/whatsapp.ts` — un solo lugar
-  para el número y el mensaje precargado; todos los botones lo usan
-  vía `components/ui/WhatsAppCTA.astro`.
+  para el número y el mensaje precargado; todos los botones (incluido
+  el flotante) lo usan vía `components/ui/WhatsAppCTA.astro` o
+  directamente.
 
-Lo que **no** está construido todavía (ver "Pendientes" abajo):
-páginas de curso, páginas satélite SEO, blog, content collections,
-testimonios reales, y el Header/Footer completos según v1.1 de
+Lo que **no** está construido todavía (ver "Pendientes" abajo): el
+resto de páginas núcleo (autonomía digital, accesibilidad, sobre mí,
+blog), páginas satélite SEO, content collections, testimonios reales
+(con consentimiento) y el Header/Footer completos según v1.1 de
 `ARCHITECTURE.md`.
 
 ## Documentación del proyecto
@@ -41,36 +57,46 @@ Antes de tocar código, leer en este orden:
 
 ## Stack
 
-- **[Astro 7](https://astro.build)** — framework principal, sitio
-  estático.
-- **Tailwind CSS v4** — sin vanilla CSS/BEM (decisión deliberada, ver
-  `AGENTS.md`).
-- **Sin Three.js ni animaciones 3D** — prioridad en velocidad para
-  equipos y conexiones más antiguas.
-- Interactividad liviana con **Alpine.js** si hace falta, evaluado
-  antes que frameworks pesados como React o Vue.
+## Stack
+
+- **[Astro 7](https://astro.build)** — framework principal, sitio estático.
+- **Tailwind CSS v4** — sistema de estilos.
+- **TypeScript** — en componentes `.astro` y en `src/lib/whatsapp.ts`.
 
 ## Estructura del proyecto (`src/`)
 
 ```
 src/
+├── assets/
+│ ├── astro.svg
+│ └── background.svg
 ├── components/
 │ ├── layout/
+│ │ ├── Footer.astro
 │ │ ├── Header.astro
-│ │ └── Footer.astro
+│ │ └── MobileNav.astro
 │ ├── sections/
-│ │ ├── Hero.astro
-│ │ ├── PilaresMensaje.astro
+│ │ ├── AccesibilidadBanner.astro
+│ │ ├── CTAWhatsAppBanner.astro
 │ │ ├── CursosGrid.astro
-│ │ └── AccesibilidadBanner.astro
+│ │ ├── Hero.astro
+│ │ ├── PageHero.astro
+│ │ ├── ParaQuienSection.astro
+│ │ ├── PilaresMensaje.astro
+│ │ ├── TemasCubiertosSection.astro
+│ │ └── TestimoniosSection.astro
 │ └── ui/
 │ ├── CourseCard.astro
-│ └── WhatsAppCTA.astro
+│ ├── HeroIllustration.astro
+│ ├── TestimonialCard.astro
+│ ├── WhatsAppCTA.astro
+│ └── WhatsAppFloatingButton.astro
 ├── layouts/
 │ └── Layout.astro
 ├── lib/
 │ └── whatsapp.ts # número + builder del link wa.me, centralizado
 ├── pages/
+│ ├── alfabetizacion-digital.astro
 │ └── index.astro
 └── styles/
 └── global.css
@@ -86,22 +112,20 @@ el schema de la collection `cursos` documentado en
 
 En orden sugerido, pero no bloqueante — Germán decide el orden real:
 
-1. **Páginas núcleo faltantes** — `/alfabetizacion-digital/`,
-   `/autonomia-digital/`, `/accesibilidad/`, `/sobre-mi/`, `/blog/`.
-   Mientras no existan, los links del Grid de cursos y de la franja
-   de accesibilidad en la Home apuntan a rutas que dan 404.
+1. **Páginas núcleo faltantes** — `/autonomia-digital/`,
+   `/accesibilidad/`, `/sobre-mi/`, `/blog/`. Mientras no existan,
+   algunos links de la Home y del Header apuntan a rutas que dan 404.
 2. **Header/Footer completos** — hoy son una versión reducida. Falta
-   el nav de 6 links + CTA y el footer con CTA de WhatsApp y enlace a
+   el nav de 6 links + CTA y el footer con enlace a
    `/clases-inteligencia-artificial/` que define `ARCHITECTURE.md`
-   v1.1. Depende del punto 2 (no tiene sentido linkear a páginas que
+   v1.1. Depende del punto 1 (no tiene sentido linkear a páginas que
    no existen).
 3. **Content collections** (`src/content.config.ts`) — `cursos`,
    `testimonios`, `blog`, con el schema ya definido en
    `docs/ARCHITECTURE.md`.
-4. **Testimonios reales** — pendiente selección y consentimiento
-   (ver `ARCHITECTURE.md`). La sección `TestimoniosSection` se agrega
-   a la Home recién cuando exista contenido real; no se fabricó
-   contenido de ejemplo a propósito.
+4. **Testimonios reales** — reemplazar los datos de ejemplo de
+   `TestimoniosSection.astro` por testimonios reales, con selección
+   y consentimiento (ver `ARCHITECTURE.md`).
 5. **Primeros posts de blog** — una vez que haya al menos un artículo,
    se activa `BlogPreview` en la Home.
 6. **Páginas satélite SEO** — construir en el orden ya definido en
