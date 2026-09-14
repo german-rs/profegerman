@@ -1,0 +1,30 @@
+---
+// src/components/ui/WhatsAppFloatingButton.astro
+import { buildWhatsAppLink } from "../../lib/whatsapp";
+
+interface Props {
+  /** Mensaje precargado en el chat de WhatsApp. Opcional. */
+  message?: string;
+}
+
+const { message = "Hola profe, quiero saber más de las clases" } = Astro.props;
+
+const href = buildWhatsAppLink(message);
+const { BASE_URL } = import.meta.env;
+---
+
+<a
+  class="fixed bottom-6 right-6 z-50 flex h-[4.5rem] w-[4.5rem] items-center justify-center motion-safe:transition-transform motion-safe:hover:scale-110"
+  href={href}
+  rel="noopener noreferrer"
+  aria-label="Escríbenos por WhatsApp"
+>
+  <img
+    src={`${BASE_URL}btn-whatsapp.webp`}
+    alt=""
+    width="72"
+    height="72"
+    class="h-full w-full object-contain"
+    loading="lazy"
+  />
+</a>
