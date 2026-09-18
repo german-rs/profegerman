@@ -8,12 +8,13 @@ interface Props {
 const { links } = Astro.props;
 ---
 
-<!-- Menú móvil: <details>/<summary> nativo, sin JavaScript -->
-<details class="relative shrink-0 md:hidden">
+<details id="mobile-nav" class="relative shrink-0 md:hidden">
   <summary
     class="flex min-h-11 min-w-11 cursor-pointer list-none items-center gap-2 rounded-md px-2 font-bold [&::-webkit-details-marker]:hidden"
   >
+    <!-- Ícono hamburguesa -->
     <svg
+      id="icon-menu"
       aria-hidden="true"
       width="24"
       height="24"
@@ -27,7 +28,25 @@ const { links } = Astro.props;
       <line x1="3" y1="12" x2="21" y2="12" />
       <line x1="3" y1="18" x2="21" y2="18" />
     </svg>
-    Menú
+
+    <!-- Ícono X -->
+    <svg
+      id="icon-close"
+      aria-hidden="true"
+      class="hidden"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+    >
+      <line x1="18" y1="6" x2="6" y2="18" />
+      <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+
+    <span id="label-menu">Menú</span>
   </summary>
 
   <nav
@@ -44,7 +63,6 @@ const { links } = Astro.props;
           </li>
         ))
       }
-
       <li class="pt-2">
         <WhatsAppCTA
           message="Hola profe, quiero saber más de las clases"
@@ -56,3 +74,18 @@ const { links } = Astro.props;
     </ul>
   </nav>
 </details>
+
+<script>
+  const details = document.getElementById("mobile-nav") as HTMLDetailsElement;
+  const iconMenu = document.getElementById("icon-menu")!;
+  const iconClose = document.getElementById("icon-close")!;
+  const label = document.getElementById("label-menu")!;
+
+  details.addEventListener("toggle", () => {
+    const isOpen = details.open;
+
+    iconMenu.classList.toggle("hidden", isOpen);
+    iconClose.classList.toggle("hidden", !isOpen);
+    label.textContent = isOpen ? "Cerrar" : "Menú";
+  });
+</script>
