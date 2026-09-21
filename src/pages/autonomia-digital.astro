@@ -1,0 +1,82 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/sections/PageHero.astro";
+import ParaQuienSection from "../components/sections/ParaQuienSection.astro";
+import TemasCubiertosSection from "../components/sections/TemasCubiertosSection.astro";
+import CTAWhatsAppBanner from "../components/sections/CTAWhatsAppBanner.astro";
+
+const temas = [
+  {
+    titulo: "Trámites en línea",
+    descripcion:
+      "Aprende a hacer trámites del gobierno, pagar cuentas y sacar horas médicas desde tu casa.",
+  },
+  {
+    titulo: "Videollamadas",
+    descripcion:
+      "Habla cara a cara con tus familiares y amigos usando WhatsApp, Zoom o FaceTime.",
+  },
+  {
+    titulo: "WhatsApp",
+    descripcion:
+      "Envía mensajes, fotos, audios y videollamadas. Aprende a usar los grupos con confianza.",
+  },
+  {
+    titulo: "Seguridad y estafas comunes",
+    descripcion:
+      "Reconoce los engaños más frecuentes y aprende a proteger tus datos y tu dinero.",
+  },
+];
+
+const paraQuienItems = [
+  "Ya sabes encender tu computador o celular y quieres dar el siguiente paso.",
+  "Quieres poder hacer trámites en línea sin depender de otra persona.",
+  "Te gustaría videollamarte con la familia pero no sabes bien cómo.",
+  "Sientes que podrías caer en una estafa y quieres aprender a cuidarte.",
+];
+
+const ctaMensaje = "Hola profe, quiero aprender autonomía digital.";
+---
+
+<Layout
+  title="Autonomía digital para adultos y personas mayores | Profe Germán"
+  description="Clases de autonomía digital: trámites en línea, videollamadas, WhatsApp y seguridad. A tu ritmo y sin jerga. Escríbeme por WhatsApp y partimos cuando quieras."
+>
+  <PageHero
+    kicker="Curso para dar el siguiente paso"
+    titulo="Autonomía digital"
+    subtitulo="Da el siguiente paso: trámites en línea, videollamadas con la familia, WhatsApp y cómo cuidarte de estafas. Paso a paso, a tu ritmo."
+    ctaMensaje={ctaMensaje}
+    ctaTexto="Quiero aprender esto"
+    secondaryHref="/alfabetizacion-digital/"
+    secondaryTexto="¿Partes desde cero? Conoce el nivel anterior"
+  />
+
+  <ParaQuienSection items={paraQuienItems} />
+
+  <TemasCubiertosSection temas={temas} />
+
+  <section
+    class="border-y border-black/10 bg-accessibility/10"
+    aria-labelledby="accesibilidad-nota-titulo"
+  >
+    <div class="container py-10">
+      <h2 id="accesibilidad-nota-titulo" class="text-xl font-bold">
+        ¿Tienes dificultades auditivas?
+      </h2>
+      <p class="mt-2 max-w-prose text-base">
+        También hago clases en Lengua de Señas Chilena (LSCh).{" "}
+        <a class="text-link" href="/accesibilidad/">
+          Conoce más sobre accesibilidad
+        </a>.
+      </p>
+    </div>
+  </section>
+
+  <CTAWhatsAppBanner
+    titulo="¿Empezamos con autonomía digital?"
+    texto="Escríbeme y cuéntame qué te gustaría aprender primero."
+    ctaMensaje={ctaMensaje}
+    ctaTexto="Escríbeme por WhatsApp"
+  />
+</Layout>
