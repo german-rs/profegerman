@@ -8,7 +8,15 @@ const links = [
 ];
 ---
 
-<header class="border-b border-black/10 bg-background">
+<!--
+  data-header: referencia para el script de scroll.
+  Arranca transparente; al hacer scroll recibe .header--scrolled
+  que activa el fondo sólido con borde inferior.
+-->
+<header
+  data-header
+  class="fixed top-0 left-0 right-0 z-50 border-b border-transparent transition-colors duration-200"
+>
   <div class="container flex min-h-18 items-center justify-between gap-4">
     <a
       href="/"
@@ -30,7 +38,6 @@ const links = [
             </li>
           ))
         }
-
         <li>
           <WhatsAppCTA message="Hola profe, quiero saber más de las clases">
             WhatsApp
@@ -42,3 +49,27 @@ const links = [
     <MobileNav links={links} />
   </div>
 </header>
+
+<script>
+  const header = document.querySelector('[data-header]') as HTMLElement | null;
+  if (header) {
+    const THRESHOLD = 40;
+
+    const update = () => {
+      header.classList.toggle('header--scrolled', window.scrollY > THRESHOLD);
+    };
+
+    window.addEventListener('scroll', update, { passive: true });
+    update(); // estado inicial por si la página carga con scroll
+  }
+</script>
+
+<style>
+  /* Estado scrolled: fondo sólido + borde inferior */
+  [data-header].header--scrolled {
+    background-color: rgba(22, 27, 34, 0.92); /* canvas-secondary con transparencia */
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border-bottom-color: var(--color-border-default); /* #30363d */
+  }
+</style>

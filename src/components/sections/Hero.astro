@@ -8,11 +8,16 @@ const whatsappHref = buildWhatsAppLink(
 );
 ---
 
+<!--
+  pt-18 compensa la altura del header fixed (min-h-18 = 4.5rem).
+  El gradiente arranca en el azul-índigo del hero de GitHub
+  y funde a canvas-primary hacia abajo.
+-->
 <section
-  class="px-6 py-16 sm:py-20 lg:py-28"
+  class="px-6 pt-[4.5rem] pb-16 sm:pb-20 lg:pb-28"
   style="background: linear-gradient(to bottom, #0c0d1e 0%, var(--color-canvas-primary) 100%);"
 >
-  <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
+  <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 pt-16 sm:pt-20 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:pt-28">
 
     <div>
       <p class="mb-4 font-semibold text-accent-subtle">
