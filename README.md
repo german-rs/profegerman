@@ -7,7 +7,7 @@ alfabetización digital para adultos, personas mayores y quien quiera sentirse c
 
 ## Vista previa
 
-[![Vista previa de la home de Profe Germán](docs/screenshots/screenshot-hero-profegerman.webp)](https://profegerman.cl)
+[![Vista previa de la home de Profe Germán](docs/screenshots/screenshot-hero-profegerman.jpg)](https://profegerman.cl)
 
 ## Estado actual
 
