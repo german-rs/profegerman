@@ -12,7 +12,7 @@
 // - Accesibilidad  → accesibilidad (teal), reservado exclusivamente para
 //                    este tema en todo el sitio.
 
-type PilarColor = "primary" | "success" | "accessibility" | "lilac";
+type PilarColor = "primary" | "success" | "accessibility";
 
 interface Pilar {
   titulo: string;
@@ -24,7 +24,7 @@ const pilares: Pilar[] = [
   {
     titulo: "Paciencia",
     texto: "Con calma y a tu ritmo, las veces que sea necesario.",
-    color: "lilac",
+    color: "primary",
   },
   {
     titulo: "Autonomía",
@@ -44,7 +44,6 @@ const estilos: Record<PilarColor, { card: string; icon: string }> = {
   primary: { card: "bg-primary/15", icon: "text-primary" },
   success: { card: "bg-success/15", icon: "text-success" },
   accessibility: { card: "bg-accessibility/15", icon: "text-accessibility" },
-  lilac: { card: "bg-lilac/15", icon: "text-lilac" },
 };
 ---
 
@@ -61,7 +60,7 @@ const estilos: Record<PilarColor, { card: string; icon: string }> = {
             aria-hidden="true"
             class="flex h-12 w-12 items-center justify-center rounded-full bg-background"
           >
-            {pilar.color === "lilac" && (
+            {pilar.color === "primary" && (
               <svg
                 viewBox="0 0 24 24"
                 fill="none"

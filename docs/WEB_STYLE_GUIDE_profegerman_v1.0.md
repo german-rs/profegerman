@@ -12,7 +12,7 @@ Astro 7 + Tailwind CSS v4. Explícitamente sin vanilla CSS/BEM ni Three.js
 | Texto principal | `#2E2A27` | Texto de cuerpo |
 | Accesibilidad (compartido con germanriveros.cl) | `#67C6C0` | Reservado exclusivamente a elementos de accesibilidad/LSCh — mismo significado semántico en ambos sitios |
 | Confirmación | `#6B9E78` | Estados de éxito (ej. "clase agendada") |
-| Lila polvo (acento secundario) | `#A78BAE` | Tarjeta de "Paciencia" en Así trabajo contigo; disponible como acento secundario de personalidad en tarjetas o UI — no reemplaza al terracota como color de acción |
+|
 
 Estos valores son punto de partida. **Verificar contraste real con
 axe/WAVE antes de publicar** — meta AA en todo el sitio, AAA en texto
