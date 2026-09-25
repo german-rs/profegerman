@@ -6,20 +6,30 @@ interface Props {
   resumen: string;
   temas: string[];
   href: string;
+  imagen?: string;
+  imagenAlt?: string;
 }
 
-const { titulo, nivel, duracion, resumen, temas, href } = Astro.props;
+const { titulo, nivel, duracion, resumen, temas, href, imagen, imagenAlt } = Astro.props;
 ---
 
-<article class="flex flex-col rounded-lg border border-black/10 bg-white/60 p-6">
+<article class="flex flex-col rounded-lg bg-white/60 p-6">
+  {imagen && (
+    <img
+      src={imagen}
+      alt={imagenAlt ?? ""}
+      width="160"
+      height="160"
+      class="w-40 h-40 object-cover rounded-full mx-auto mb-6 mt-2"
+      loading="lazy"
+      decoding="async"
+    />
+  )}
   <p class="m-0 text-sm font-bold uppercase tracking-wide text-primary">
     {nivel}
   </p>
-
   <h3 class="mt-2 text-2xl font-bold">{titulo}</h3>
-
   <p class="mt-3 text-base">{resumen}</p>
-
   <ul class="mt-4 list-none space-y-2 p-0 text-base">
     {
       temas.map((tema) => (
@@ -30,12 +40,9 @@ const { titulo, nivel, duracion, resumen, temas, href } = Astro.props;
       ))
     }
   </ul>
-
   <p class="mt-4 text-sm">
-    <strong>Duración:</strong>
-    {duracion}
+    <strong>Duración:</strong> {duracion}
   </p>
-
   <a class="button button--secondary mt-6 self-start" href={href}>
     Ver detalles de {titulo}
   </a>
