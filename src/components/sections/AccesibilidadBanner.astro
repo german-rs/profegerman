@@ -1,19 +1,7 @@
----
----
-
-<!--
-  Lógica: la sección NO tiene fondo ni overflow.
-  El fondo verde es un div absoluto que empieza en `top: Xrem` — ese valor
-  es exactamente cuánto desborda la imagen por ARRIBA.
-  La imagen desborda por ABAJO con margin-bottom negativo, lo que agranda
-  la sección empujando el contenido siguiente hacia abajo — sin clips.
--->
 <section
   class="relative border-y border-black/0"
   aria-labelledby="accesibilidad-titulo"
 >
-
-  <!-- FONDO VERDE — empieza donde termina el desborde superior de la imagen -->
   <div
     class="absolute inset-x-0 bottom-0 bg-accessibility/10 pointer-events-none"
     style="top: 3rem;"
@@ -23,32 +11,27 @@
   <div class="container relative z-10 flex flex-col md:flex-row md:items-end">
 
     <!-- Columna izquierda: texto -->
-    <div class="flex flex-col justify-center gap-6 pr-8 md:w-1/2" style="padding-top: 5rem; padding-bottom: 3rem;">
+    <div
+      class="flex flex-col items-center text-center md:items-start md:text-left justify-center gap-6 md:pr-8 md:w-1/2"
+      style="padding-top: 5rem; padding-bottom: 3rem;"
+    >
       <h2
         id="accesibilidad-titulo"
         class="text-3xl font-bold leading-snug md:text-4xl"
       >
-        Aprende a tu <em class="font-serif not-italic italic font-normal">propio ritmo</em>
+        Aprende a tu
+        <em class="font-serif not-italic italic font-normal"> propio ritmo</em>
       </h2>
       <p class="text-base leading-relaxed max-w-sm">
-        Manejo Lengua de Señas Chilena (LSCh) y ajusto cada clase —
-        ritmo, letra, apoyos visuales o auditivos — según lo que cada
-        persona necesite.
+        Manejo Lengua de Señas Chilena (LSCh) y ajusto cada clase — ritmo,
+        letra, apoyos visuales o auditivos — según lo que cada persona necesite.
       </p>
-      <a
-        class="button button--secondary self-start"
-        href="/accesibilidad/"
-      >
+      <!-- CAMBIO: md:self-start en lugar de self-start -->
+      <a class="button button--secondary md:self-start" href="/accesibilidad/">
         Conoce más sobre accesibilidad
       </a>
     </div>
 
-    <!--
-      Columna derecha.
-      margin-top negativo → desborde ARRIBA (debe coincidir con top del fondo verde).
-      margin-bottom negativo → desborde ABAJO (empuja la sección y no hay clip que lo detenga).
-      Ajusta ambos valores al gusto.
-    -->
     <div class="hidden md:flex md:w-1/2 justify-center items-end">
       <img
         src="/illustrations/img_accesibility.webp"
@@ -56,20 +39,20 @@
         width="600"
         height="600"
         class="w-full max-w-[460px] block"
-        style="margin-top: -3rem; margin-bottom: -3rem;"
+        style="margin-top: -1rem; margin-bottom: -1rem;"
         loading="lazy"
         decoding="async"
       />
     </div>
 
-    <!-- Mobile: sin desborde -->
+    <!-- Mobile: imagen centrada -->
     <img
       src="/illustrations/img_accesibility.webp"
       alt=""
       aria-hidden="true"
       width="600"
       height="600"
-      class="md:hidden w-full max-w-[300px] mx-auto object-contain py-6"
+      class="md:hidden w-full max-w-[400px] mx-auto block object-contain py-6"
       loading="lazy"
       decoding="async"
     />
