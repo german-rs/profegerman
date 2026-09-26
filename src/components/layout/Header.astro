@@ -1,13 +1,17 @@
 ---
 import WhatsAppCTA from "../ui/WhatsAppCTA.astro";
 import MobileNav from "./MobileNav.astro";
+
 const links = [
   { href: "/alfabetizacion-digital/", label: "Clases" },
   { href: "/sobre-mi/", label: "Sobre mí" },
 ];
 ---
 
-<header class="border-b border-black/10 bg-background">
+<header
+  id="site-header"
+  class="sticky top-0 z-50 border-b border-transparent bg-transparent motion-safe:transition-[background-color,box-shadow,border-color] motion-safe:duration-200 motion-safe:ease-out"
+>
   <div class="container flex min-h-18 items-center justify-between gap-4">
     <a
       href="/"
@@ -16,15 +20,14 @@ const links = [
     >
       Profe Germán
     </a>
+
     <!-- Navegación de escritorio -->
     <nav aria-label="Navegación principal" class="hidden md:block">
       <ul class="flex list-none items-center gap-5 p-0">
         {
           links.map((link) => (
             <li>
-              {" "}
               <a class="text-link" href={link.href}>
-                {" "}
                 {link.label}
               </a>
             </li>
@@ -37,6 +40,43 @@ const links = [
         </li>
       </ul>
     </nav>
+
     <MobileNav links={links} />
   </div>
 </header>
+
+<script>
+  const header = document.getElementById("site-header");
+
+  if (header) {
+    const SCROLL_THRESHOLD = 24;
+    let ticking = false;
+
+    const updateHeader = () => {
+      const scrolled = window.scrollY > SCROLL_THRESHOLD;
+
+      header.classList.toggle("bg-transparent", !scrolled);
+      header.classList.toggle("border-transparent", !scrolled);
+
+      header.classList.toggle("bg-background/90", scrolled);
+      header.classList.toggle("backdrop-blur-md", scrolled);
+      header.classList.toggle("border-black/10", scrolled);
+      header.classList.toggle("shadow-sm", scrolled);
+
+      ticking = false;
+    };
+
+    updateHeader();
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateHeader);
+          ticking = true;
+        }
+      },
+      { passive: true },
+    );
+  }
+</script>
