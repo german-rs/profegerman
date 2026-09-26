@@ -1,27 +1,83 @@
-<footer class="mt-20 border-t border-black/10 bg-background">
+---
+/**
+ * Footer rediseñado — versión simple: curva orgánica + CTA de cierre.
+ *
+ * Supuestos (no tuve acceso a tu tailwind.config):
+ * - Reutilicé container, text-link, bg-background, border-black/10 tal cual los tenías.
+ * - El verde salvia (#B7CDB0) y el terracota (#D2703F) van como valores arbitrarios.
+ *   Si ya tienes tokens para estos mismos colores, reemplaza los bg-[#...] por esos tokens.
+ * - El ícono de WhatsApp y la ilustración son SVG inline, sin librería nueva.
+ */
+const whatsappHref =
+  "https://wa.me/56982960453?text=Hola%20profe%2C%20quiero%20saber%20m%C3%A1s%20de%20las%20clases";
+---
+
+<footer class="mt-20 bg-background">
+  <!-- Curva orgánica animada -->
+  <div class="relative h-10 w-full overflow-hidden md:h-14" aria-hidden="true">
+    <svg
+      viewBox="0 0 2400 60"
+      preserveAspectRatio="none"
+      class="wave-track absolute left-0 top-0 h-full w-[200%]"
+    >
+      <path
+        d="M0,30 C200,60 400,0 600,30 C800,60 1000,0 1200,30 L1200,60 L0,60 Z"
+        class="fill-[#B7CDB0]"
+      ></path>
+      <path
+        d="M0,30 C200,60 400,0 600,30 C800,60 1000,0 1200,30 L1200,60 L0,60 Z"
+        transform="translate(1200,0)"
+        class="fill-[#B7CDB0]"
+      ></path>
+    </svg>
+  </div>
+
+  <!-- Banda de cierre -->
+  <div class="bg-[#B7CDB0]">
+    <div class="container flex flex-col items-center gap-8 py-10">
+      <div class="text-center md:text-left">
+        <p class="m-0 text-xl font-semibold text-[#1F3D1A]">
+          ¿Seguimos en contacto?
+        </p>
+        <p class="m-0 mt-2 max-w-prose text-base text-[#2F4A2A]">
+          Cuéntame qué te gustaría aprender y vemos juntos por dónde partir.
+        </p>
+        <a
+          href={whatsappHref}
+          rel="noopener noreferrer"
+          class="mt-5 inline-flex items-center gap-2 rounded-full bg-[#D2703F] px-5 py-2.5 text-base font-semibold text-white transition hover:bg-[#B85E33] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1F3D1A]"
+        >
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            class="h-5 w-5 fill-current"
+          >
+            <path
+              d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5l.4-.4c.1-.1.2-.2.2-.4.1-.1 0-.3 0-.4l-.7-1.7c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.4 3.8 3.4.5.2.9.4 1.3.5.5.2 1 .1 1.4.1.4-.1 1.3-.5 1.5-1 .2-.5.2-.9.1-1Z"
+            ></path>
+          </svg>
+          Escríbeme por WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Datos del sitio -->
   <div class="container flex flex-col gap-6 py-10 md:flex-row md:items-center md:justify-between">
     <div>
       <p class="m-0 font-bold">Profe Germán</p>
-
       <p class="mt-2 max-w-prose text-base">
         Clases de computación, celular y alfabetización digital para adultos.
       </p>
     </div>
-
     <nav aria-label="Navegación secundaria">
-      <ul class="flex list-none flex-wrap gap-x-6 gap-y-3 p-0 text-base">
+      <ul class="m-0 flex list-none flex-wrap gap-x-6 gap-y-3 p-0 text-base">
         <li>
-          <a class="text-link" href="/accesibilidad/">
-            Accesibilidad
-          </a>
+          <a class="text-link" href="/accesibilidad/">Accesibilidad</a>
         </li>
-
         <li>
-          <a class="text-link" href="/sobre-mi/">
-            Sobre mí
-          </a>
+          <a class="text-link" href="/sobre-mi/">Sobre mí</a>
         </li>
-
         <li>
           <a
             class="text-link"
@@ -43,3 +99,27 @@
     </div>
   </div>
 </footer>
+
+<style>
+  /* La franja mide el doble del ancho del contenedor (dos copias de la misma
+     ola una al lado de la otra) y se desplaza -50% en loop, así el punto de
+     unión entre una copia y la otra es invisible: se ve continua. */
+  .wave-track {
+    animation: wave-scroll 18s linear infinite;
+  }
+
+  @keyframes wave-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wave-track {
+      animation: none;
+    }
+  }
+</style>
