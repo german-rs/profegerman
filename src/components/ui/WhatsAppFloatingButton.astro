@@ -7,7 +7,6 @@ interface Props {
 }
 
 const { message = "Hola profe, quiero saber más de las clases" } = Astro.props;
-
 const href = buildWhatsAppLink(message);
 const { BASE_URL } = import.meta.env;
 ---
@@ -18,12 +17,45 @@ const { BASE_URL } = import.meta.env;
   rel="noopener noreferrer"
   aria-label="Escríbenos por WhatsApp"
 >
+  <span
+    aria-hidden="true"
+    class="pulse-ring pointer-events-none absolute inset-0 rounded-full bg-[#25D366]"
+  ></span>
   <img
     src={`${BASE_URL}btn-whatsapp.webp`}
     alt=""
     width="72"
     height="72"
-    class="h-full w-full object-contain"
+    class="relative h-full w-full object-contain"
     loading="lazy"
   />
 </a>
+
+<style>
+  /* Halo que crece y se desvanece detrás del ícono, para que el botón se
+     note sin necesidad de moverlo ni cambiarle el tamaño constantemente. */
+  .pulse-ring {
+    animation: whatsapp-pulse 2.6s ease-out infinite;
+  }
+
+  @keyframes whatsapp-pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.45;
+    }
+    70% {
+      transform: scale(1.9);
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pulse-ring {
+      animation: none;
+      opacity: 0;
+    }
+  }
+</style>

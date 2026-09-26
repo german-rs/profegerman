@@ -2,6 +2,7 @@
 //src/components/sections/Hero.astro
 import { buildWhatsAppLink } from "../../lib/whatsapp";
 import HeroIllustration from "../ui/HeroIllustration.astro";
+
 const whatsappHref = buildWhatsAppLink(
   "Hola, quiero contarte qué me gustaría aprender.",
 );
@@ -32,13 +33,13 @@ const whatsappHref = buildWhatsAppLink(
       <div class="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
         <a
           href={whatsappHref}
-          class="inline-flex min-h-[44px] items-center justify-center rounded-md bg-[#D96C4B] px-6 py-3 font-semibold text-white motion-safe:transition-colors hover:bg-[#c25d3f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D96C4B]"
+          class="inline-flex min-h-[44px] items-center justify-center rounded-md bg-[#D96C4B] px-6 py-3 font-semibold text-white hover:bg-[#c25d3f] hover:shadow-[0_10px_20px_-6px_rgba(217,108,75,0.45)] motion-safe:transition-[background-color,box-shadow,transform] motion-safe:duration-200 motion-safe:ease-out motion-safe:hover:-translate-y-0.5 motion-safe:active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D96C4B]"
         >
           Cuéntame qué quieres aprender
         </a>
         <a
           href="/sobre-mi/"
-          class="inline-flex min-h-[44px] items-center justify-center rounded-md border-2 border-[#2E2A27] px-6 py-3 font-semibold text-[#2E2A27] motion-safe:transition-colors hover:bg-[#2E2A27] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2E2A27]"
+          class="inline-flex min-h-[44px] items-center justify-center rounded-md border-2 border-[#2E2A27] px-6 py-3 font-semibold text-[#2E2A27] hover:bg-[#2E2A27] hover:text-white hover:shadow-[0_10px_20px_-6px_rgba(46,42,39,0.35)] motion-safe:transition-[background-color,color,box-shadow,transform] motion-safe:duration-200 motion-safe:ease-out motion-safe:hover:-translate-y-0.5 motion-safe:active:translate-y-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2E2A27]"
         >
           Conoce al profe
         </a>
