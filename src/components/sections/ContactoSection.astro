@@ -4,7 +4,11 @@ const FORMSPREE_ID = "xgawarrv";
 const FORMSPREE_URL = `https://formspree.io/f/${FORMSPREE_ID}`;
 ---
 
-<section id="contacto" class="container py-16 md:py-20" aria-labelledby="contacto-titulo">
+<section
+  id="contacto"
+  class="container py-16 md:py-20"
+  aria-labelledby="contacto-titulo"
+>
   <div class="mx-auto max-w-2xl">
     <p class="font-bold tracking-wide text-primary">
       Contacto
@@ -15,8 +19,8 @@ const FORMSPREE_URL = `https://formspree.io/f/${FORMSPREE_ID}`;
     </h2>
 
     <p class="mt-3 max-w-prose text-base leading-relaxed">
-      Cuéntame qué te gustaría aprender y cuándo tienes tiempo.
-      Te respondo dentro de 24 horas.
+      Cuéntame qué te gustaría aprender y cuándo tienes tiempo. Te respondo
+      dentro de 24 horas.
     </p>
 
     <form
@@ -26,7 +30,6 @@ const FORMSPREE_URL = `https://formspree.io/f/${FORMSPREE_ID}`;
       novalidate
       class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2"
     >
-    
       <div class="flex flex-col gap-1">
         <label for="nombre" class="text-sm font-bold">
           Nombre <span class="text-primary" aria-hidden="true">*</span>
@@ -42,31 +45,20 @@ const FORMSPREE_URL = `https://formspree.io/f/${FORMSPREE_ID}`;
       </div>
 
       <div class="flex flex-col gap-1">
-        <label for="correo" class="text-sm font-bold">
-          Correo <span class="text-primary" aria-hidden="true">*</span>
+        <label for="telefono" class="text-sm font-bold">
+          Teléfono <span class="text-primary" aria-hidden="true">*</span>
         </label>
-        <input
-          type="email"
-          id="correo"
-          name="email"
-          required
-          autocomplete="email"
-          class="min-h-[2.75rem] rounded-lg border border-[#d4c5b5] bg-white px-4 py-2 text-base text-text transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
-        />
-      </div>
-
-      <div class="flex flex-col gap-1">
-        <label for="telefono" class="text-sm font-bold">Teléfono</label>
         <input
           type="tel"
           id="telefono"
           name="telefono"
+          required
           autocomplete="tel"
           class="min-h-[2.75rem] rounded-lg border border-[#d4c5b5] bg-white px-4 py-2 text-base text-text transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
         />
       </div>
 
-      <div class="flex flex-col gap-1">
+      <div class="flex flex-col gap-1 sm:col-span-2">
         <label for="nivel" class="text-sm font-bold">
           ¿Qué te gustaría aprender?
         </label>
@@ -83,6 +75,34 @@ const FORMSPREE_URL = `https://formspree.io/f/${FORMSPREE_ID}`;
         </select>
       </div>
 
+      <!-- Preferencia de contacto -->
+      <fieldset class="flex flex-col gap-2 sm:col-span-2">
+        <legend class="text-sm font-bold">
+          ¿Prefieres que te escriba por WhatsApp?
+        </legend>
+        <div class="flex flex-wrap gap-4">
+          <label class="flex min-h-[2.75rem] items-center gap-2 rounded-lg border border-[#d4c5b5] bg-transparent px-4 py-2 text-base text-text transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/10">
+            <input
+              type="radio"
+              name="contacto_preferido"
+              value="whatsapp"
+              checked
+              class="h-4 w-4 accent-primary"
+            />
+            Sí, por WhatsApp
+          </label>
+          <label class="flex min-h-[2.75rem] items-center gap-2 rounded-lg border border-[#d4c5b5] bg-transparent px-4 py-2 text-base text-text transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/10">
+            <input
+              type="radio"
+              name="contacto_preferido"
+              value="llamada"
+              class="h-4 w-4 accent-primary"
+            />
+            Prefiero que me llamen
+          </label>
+        </div>
+      </fieldset>
+
       <!-- Mensaje -->
       <div class="flex flex-col gap-1 sm:col-span-2">
         <label for="mensaje" class="text-sm font-bold">
@@ -98,7 +118,27 @@ const FORMSPREE_URL = `https://formspree.io/f/${FORMSPREE_ID}`;
         ></textarea>
       </div>
 
-      <input type="text" name="_gotcha" class="hidden" tabindex="-1" aria-hidden="true" />
+      <!-- Correo: opcional, al final -->
+      <div class="flex flex-col gap-1 sm:col-span-2">
+        <label for="correo" class="text-sm font-bold">
+          Correo <span class="font-normal text-[#7a6555]">(opcional)</span>
+        </label>
+        <input
+          type="email"
+          id="correo"
+          name="email"
+          autocomplete="email"
+          class="min-h-[2.75rem] rounded-lg border border-[#d4c5b5] bg-white px-4 py-2 text-base text-text transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+        />
+      </div>
+
+      <input
+        type="text"
+        name="_gotcha"
+        class="hidden"
+        tabindex="-1"
+        aria-hidden="true"
+      />
 
       <div class="flex flex-wrap items-center gap-4 sm:col-span-2">
         <button
@@ -108,6 +148,7 @@ const FORMSPREE_URL = `https://formspree.io/f/${FORMSPREE_ID}`;
         >
           Enviar mensaje
         </button>
+
         <p class="text-sm text-[#7a6555]">
           Los campos con <span class="text-primary" aria-hidden="true">*</span> son obligatorios.
         </p>
@@ -148,17 +189,14 @@ const FORMSPREE_URL = `https://formspree.io/f/${FORMSPREE_ID}`;
 
         if (res.ok) {
           feedback.textContent = "¡Mensaje enviado! Te respondo dentro de 24 horas.";
-          feedback.className =
-            "rounded-lg border border-success/40 bg-success/10 p-4 text-base sm:col-span-2";
+          feedback.className = "rounded-lg border border-success/40 bg-success/10 p-4 text-base sm:col-span-2";
           form.reset();
         } else {
           throw new Error("server");
         }
       } catch {
-        feedback.textContent =
-          "Hubo un problema al enviar. Puedes escribirme también por WhatsApp.";
-        feedback.className =
-          "rounded-lg border border-primary/40 bg-primary/10 p-4 text-base sm:col-span-2";
+        feedback.textContent = "Hubo un problema al enviar. Puedes escribirme también por WhatsApp.";
+        feedback.className = "rounded-lg border border-primary/40 bg-primary/10 p-4 text-base sm:col-span-2";
       } finally {
         btn.disabled = false;
         btn.textContent = "Enviar mensaje";
