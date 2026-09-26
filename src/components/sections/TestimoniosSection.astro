@@ -1,27 +1,21 @@
 ---
 import TestimonialCard from "../ui/TestimonialCard.astro";
 
-// PLACEHOLDER: reemplazar estos 5 testimonios por los reales
+// PLACEHOLDER: reemplazar los testimonios sin foto por las reales
 // (nombre, cita, logro, curso, calificación — y foto cuando exista
 // consentimiento). La forma de los datos ya calza con el schema de la
 // futura collection "testimonios" documentado en docs/ARCHITECTURE.md.
 // "logro" se sigue guardando aunque la tarjeta ya no lo muestre.
 const testimonios = [
   {
-    nombre: "Paz bembin",
-    curso: "Autonomía digital",
-    cita: "Excelente servicio, atención muy clara, rápida y eficaz. Resolvió todas las necesidades de mi empresa. 100% recomendado.",
-    logro: "Ahora hace videollamadas con sus nietos",
-    calificacion: 5,
-  },
-  {
     nombre: "Sergio Salazar",
     curso: "Autonomía digital",
-    cita: "Germán es un profesor muy profesional y agradable y además tiene iniciativa para enseñar es muy efectivo y con mucha paciencia. Lo recomiendo",
-    logro: "Aprendió a postular a trabajos por internet",
+    cita: "Germán es un profesor muy profesional y agradable y además tiene iniciativa para enseñar es muy efectivo y con mucha paciencia.",
+    logro: "Lo recomiendo",
     calificacion: 5,
+    foto: "/testimonios/Sergio-Salazar.jpg",
   },
-    {
+     {
     nombre: "Rosa Elvira Pizarro",
     curso: "Alfabetización digital",
     cita: "Le tenía miedo al computador, pensaba que iba a echar a perder algo. Ahora hasta le enseño cosas a mi marido.",
@@ -31,16 +25,26 @@ const testimonios = [
   {
     nombre: "Israel Chavez",
     curso: "Autonomía digital",
-    cita: "Aprender WordPress con Germán fue una gran experiencia. Explica de forma clara, práctica y siempre esta dispuesto a ayudar. Totalmente recomendado.",
-    logro: " Gracias a sus enseñanzas pude desarrollar mis propios proyectos web.",
+    cita: "Aprender WordPress con Germán fue una gran experiencia. Gracias a sus enseñanzas pude desarrollar mis propios proyectos web.",
+    logro: "Explica de forma clara, práctica y siempre esta dispuesto a ayudar. Totalmente recomendado.",
     calificacion: 5,
+    foto: "/testimonios/Israel-Chavez.jpg",
   },
-  {
+   {
     nombre: "María Elena Soto",
     curso: "Alfabetización digital",
     cita: "Nunca pensé que iba a poder mandarle fotos a mis nietos por WhatsApp. El profe me explicó todo con harta paciencia.",
     logro: "Ahora hace videollamadas con sus nietos",
     calificacion: 5,
+  },
+
+  {
+    nombre: "Verónica Bembin",
+    curso: "Autonomía digital",
+    cita: "Excelente servicio, atención muy clara, rápida y eficaz. Resolvió todas las necesidades de mi empresa. 100% recomendado.",
+    logro: "Ahora hace videollamadas con sus nietos",
+    calificacion: 5,
+    foto: "/testimonios/Veronica-Bembin.jpg",
   },
 ];
 ---
@@ -219,8 +223,7 @@ const testimonios = [
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    //let autoplayTimer: ReturnType<typeof window.setInterval> | undefined;
-      let autoplayTimer: number | undefined;
+    let autoplayTimer: number | undefined;
     let isPlaying = !prefersReducedMotion;
     let activeIndex = 0;
 
@@ -239,7 +242,6 @@ const testimonios = [
     const isAtStart = () => track.scrollLeft <= 4;
 
     const updateActiveDot = () => {
-      
       if (dots.length === 0) return;
 
       const maxScrollLeft = track.scrollWidth - track.clientWidth;
@@ -249,9 +251,8 @@ const testimonios = [
         const progress = track.scrollLeft / maxScrollLeft;
         index = Math.round(progress * (dots.length - 1));
       }
-    
-      index = Math.min(dots.length - 1, Math.max(0, index));
 
+      index = Math.min(dots.length - 1, Math.max(0, index));
 
       if (index === activeIndex) return;
       activeIndex = index;
