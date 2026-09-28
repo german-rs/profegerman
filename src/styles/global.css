@@ -8,10 +8,17 @@
   --color-text: #2e2a27;
   --color-accessibility: #67c6c0;
   --color-success: #6b9e78;
+
   --font-sans: "Atkinson Hyperlegible", sans-serif;
 }
 
-/* * "container" es un nombre reservado por Tailwind v4 (trae su propia * utilidad nativa sin padding ni centrado automático). Para * sobrescribirla correctamente hay que usar @utility, no @layer * components — de lo contrario la utilidad nativa de Tailwind gana * en la cascada y esta regla se ignora en silencio. */
+/*
+ * "container" es un nombre reservado por Tailwind v4 (trae su propia
+ * utilidad nativa sin padding ni centrado automático). Para
+ * sobrescribirla correctamente hay que usar @utility, no @layer
+ * components — de lo contrario la utilidad nativa de Tailwind gana
+ * en la cascada y esta regla se ignora en silencio.
+ */
 @utility container {
   width: min(100% - 2rem, 72rem);
   margin-inline: auto;
@@ -55,8 +62,7 @@
 
   ::selection {
     background-color: var(--color-primary);
-    color:
-      #ffffff;
+    color: #ffffff;
   }
 
   h1,
@@ -86,22 +92,22 @@
     line-height: 1.2;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, transform 150ms ease;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease,
+      transform 150ms ease,
+      box-shadow 150ms ease;
   }
 
   .button--primary {
     background-color: var(--color-primary);
-    color:
-      #ffffff;
+    color: #ffffff;
   }
-
   .button--primary:hover {
-    background-color:
-      #b9573b;
-  }
-
-  .button--primary:active {
-    transform: translateY(0.0625rem);
+    background-color: #b9573b;
+    box-shadow: 0 0.625rem 1.25rem -0.375rem rgba(217, 108, 75, 0.45);
+    transform: translateY(-0.125rem);
   }
 
   .button--secondary {
@@ -109,10 +115,16 @@
     background-color: transparent;
     color: var(--color-text);
   }
-
   .button--secondary:hover {
     background-color: var(--color-text);
     color: var(--color-background);
+    box-shadow: 0 0.625rem 1.25rem -0.375rem rgba(46, 42, 39, 0.35);
+    transform: translateY(-0.125rem);
+  }
+
+  .button:active {
+    transform: translateY(0.0625rem);
+    box-shadow: none;
   }
 
   .text-link {
@@ -120,7 +132,6 @@
     text-decoration-thickness: 0.1em;
     text-underline-offset: 0.2em;
   }
-
   .text-link:hover {
     color: var(--color-primary);
   }
