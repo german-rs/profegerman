@@ -13,7 +13,7 @@ interface Props {
 const { titulo, nivel, duracion, resumen, temas, href, imagen, imagenAlt } = Astro.props;
 ---
 
-<article class="flex flex-col rounded-lg bg-white/60 p-6">
+<article class="card-hover flex flex-col rounded-lg bg-white/60 p-6">
   {imagen && (
     <img
       src={imagen}

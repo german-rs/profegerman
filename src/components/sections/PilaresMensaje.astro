@@ -1,16 +1,4 @@
 ---
-// Copy tomado directo de docs/BRAND_ES.md — "Tres pilares de mensaje".
-// Si se ajusta el copy acá, reflejar el cambio también en ese archivo.
-//
-// Color asignado a cada tarjeta (dentro de la paleta ya definida en
-// docs/WEB_STYLE_GUIDE_profegerman_v1.0.md):
-// - Paciencia      → lila polvo, acento secundario agregado a la guía
-//                    para diferenciarla del terracota (que queda como
-//                    color de acción/CTA en todo el sitio).
-// - Autonomía      → confirmación (verde), el mismo tono que el sitio usa
-//                    para estados de logro; coherente con "ganar independencia".
-// - Accesibilidad  → accesibilidad (teal), reservado exclusivamente para
-//                    este tema en todo el sitio.
 
 type PilarColor = "primary" | "success" | "accessibility";
 
@@ -55,7 +43,7 @@ const estilos: Record<PilarColor, { card: string; icon: string }> = {
   <ul class="mt-8 grid list-none gap-6 p-0 md:grid-cols-3">
     {
       pilares.map((pilar) => (
-        <li class={`rounded-lg p-6 ${estilos[pilar.color].card}`}>
+        <li class={`card-hover rounded-lg p-6 ${estilos[pilar.color].card}`}>
           <span
             aria-hidden="true"
             class="flex h-12 w-12 items-center justify-center rounded-full bg-background"
