@@ -147,6 +147,17 @@
   }
 }
 
+.js-reveal .reveal {
+  opacity: 0;
+  transform: translateY(0.75rem);
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+
+.js-reveal .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @media (min-width: 48rem) {
   .container {
     width: min(100% - 4rem, 72rem);
@@ -158,6 +169,11 @@
     scroll-behavior: auto;
   }
 
+  .js-reveal .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
   *,
   *::before,
   *::after {
