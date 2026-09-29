@@ -1,16 +1,17 @@
 ---
 // src/components/ui/HeroIllustration.astro
 import { Image } from 'astro:assets';
-import heroPersona from '/public/illustrations/imagen-hero.webp';
+import heroPersona from '/public/illustrations/hero.png';
 ---
 
-<div class="relative mx-auto flex w-full max-w-sm items-center justify-center lg:max-w-none">
-
+<div class="relative mx-auto flex w-full max-w-md items-center justify-center lg:max-w-none">
   <Image
     src={heroPersona}
-    alt="Ilustración de una persona sentada frente a un notebook, con postura relajada y tranquila"
-    width={900}
-    height={600}
-    class="relative w-full max-w-[380px] sm:max-w-[420px] lg:max-w-[480px]"
+    alt="Dos hermanos saludan a sus padres en una videollamada desde un notebook, en un living sencillo"
+    widths={[640, 960, 1280]}
+    sizes="(min-width: 1024px) 640px, 90vw"
+    loading="eager"
+    fetchpriority="high"
+    class="relative h-auto w-full lg:scale-105"
   />
 </div>
