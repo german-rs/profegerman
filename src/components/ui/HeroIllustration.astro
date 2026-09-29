@@ -4,14 +4,14 @@ import { Image } from 'astro:assets';
 import heroPersona from '/public/illustrations/imagen-hero.webp';
 ---
 
-<div class="relative mx-auto flex w-full max-w-md items-center justify-center lg:max-w-none">
+<div class="relative mx-auto flex w-full max-w-md items-center justify-center lg:mx-0 lg:ml-auto lg:max-w-[30rem]">
   <Image
     src={heroPersona}
     alt="Dos hermanos saludan a sus padres en una videollamada desde un notebook, en un living sencillo"
-    widths={[640, 960, 1280]}
-    sizes="(min-width: 1024px) 640px, 90vw"
+    widths={[480, 640, 960]}
+    sizes="(min-width: 1024px) 480px, 90vw"
     loading="eager"
     fetchpriority="high"
-    class="relative h-auto w-full lg:scale-105"
+    class="h-auto w-full"
   />
 </div>
