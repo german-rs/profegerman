@@ -8,9 +8,16 @@ interface Props {
   href: string;
   imagen?: string;
   imagenAlt?: string;
+  acento?: "primary" | "success";
 }
 
-const { titulo, nivel, duracion, resumen, temas, href, imagen, imagenAlt } = Astro.props;
+const { titulo, nivel, duracion, resumen, temas, href, imagen, imagenAlt, acento = "primary", } = Astro.props;
+
+const manchas = {
+  primary: "bg-primary/30",
+  success: "bg-success/30",
+};
+
 ---
 
 <article class="card-hover flex flex-col rounded-lg bg-white/60 p-6">
@@ -20,11 +27,12 @@ const { titulo, nivel, duracion, resumen, temas, href, imagen, imagenAlt } = Ast
       alt={imagenAlt ?? ""}
       width="160"
       height="160"
-      class="w-40 h-40 object-cover rounded-full mx-auto mb-6 mt-2"
+      class:list={["w-40 h-40 object-cover rounded-full mx-auto mb-6 mt-2", manchas[acento]]}
       loading="lazy"
       decoding="async"
     />
   )}
+
   <p class="m-0 text-sm font-bold tracking-wide text-primary">
     {nivel}
   </p>

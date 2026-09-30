@@ -48,7 +48,7 @@ de cuerpo dado el público. No asumir cumplimiento.
 
 ## Sistema de ilustración
 
-Dos elementos separados que se combinan entre sí: **formas orgánicas** (decorativas, sin figuras) e **ilustración de línea** (figurativa/conceptual). Ninguno de los dos reemplaza la regla de fotografía real para Germán — esta sección aplica a contenido de blog, tarjetas de conceptos, y acentos decorativos del sitio, nunca a la representación de Germán mismo o de alumnos reales.
+Dos elementos separados que se combinan entre sí: **formas orgánicas** (decorativas, sin figuras) e **ilustración de línea** (figurativa/conceptual). Ninguno de los dos reemplaza la regla de fotografía real para Germán — esta sección aplica a contenido de blog, tarjetas de conceptos, y acentos decorativos del sitio, nunca a la representación de alumnos reales.
 
 ### Cuándo usar cada elemento
 
