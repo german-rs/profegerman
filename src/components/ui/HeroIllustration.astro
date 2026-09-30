@@ -6,7 +6,6 @@ import { Image } from "astro:assets";
 import grupoIzquierda from "/public/illustrations/hero-grupo-izquierda.webp";
 import grupoDerecha from "/public/illustrations/hero-grupo-derecha.webp";
 
-// Misma altura para ambos grupos: mantiene la escala de los personajes.
 const altura = "h-52 sm:h-64 lg:h-[clamp(20rem,32vw,28rem)]";
 ---
 
@@ -24,7 +23,7 @@ const altura = "h-52 sm:h-64 lg:h-[clamp(20rem,32vw,28rem)]";
   ></span>
   <span
     aria-hidden="true"
-    class="hero-circle absolute -right-16 bottom-20 hidden aspect-square h-[clamp(12rem,20vw,18rem)] rounded-full bg-accessibility/35 lg:block"
+    class="hero-circle absolute -right-16 bottom-20 hidden aspect-square h-[clamp(12rem,20vw,18rem)] rounded-full bg-primary/25 lg:block"
   ></span>
 
   <!-- Madre y padre -->
