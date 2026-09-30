@@ -1,17 +1,85 @@
 ---
 // src/components/ui/HeroIllustration.astro
-import { Image } from 'astro:assets';
-import heroPersona from '/public/illustrations/imagen-hero.webp';
+// Móvil: los dos grupos juntos sobre un solo círculo, debajo del texto.
+// Escritorio (lg): un grupo en cada esquina inferior, cada uno con su círculo.
+import { Image } from "astro:assets";
+import grupoIzquierda from "/public/illustrations/hero-grupo-izquierda.webp";
+import grupoDerecha from "/public/illustrations/hero-grupo-derecha.webp";
+
+// Misma altura para ambos grupos: mantiene la escala de los personajes.
+const altura = "h-52 sm:h-64 lg:h-[clamp(20rem,32vw,28rem)]";
 ---
 
-<div class="relative mx-auto flex w-full max-w-md items-center justify-center lg:mx-0 lg:ml-auto lg:max-w-[30rem]">
-  <Image
-    src={heroPersona}
-    alt="Dos hermanos saludan a sus padres en una videollamada desde un notebook, en un living sencillo"
-    widths={[480, 640, 960]}
-    sizes="(min-width: 1024px) 480px, 90vw"
-    loading="eager"
-    fetchpriority="high"
-    class="h-auto w-full"
-  />
+<div
+  class="relative mx-auto mt-10 flex w-full max-w-md items-end justify-center gap-2 lg:pointer-events-none lg:absolute lg:inset-0 lg:mx-0 lg:mt-0 lg:max-w-none lg:justify-between lg:gap-0 lg:px-8 xl:px-16"
+>
+  <!-- Círculos decorativos -->
+  <span
+    aria-hidden="true"
+    class="hero-circle absolute bottom-0 left-1/2 aspect-square h-[88%] -translate-x-1/2 rounded-full bg-primary/25 lg:hidden"
+  ></span>
+  <span
+    aria-hidden="true"
+    class="hero-circle absolute bottom-10 -left-12 hidden aspect-square h-[clamp(13rem,22vw,20rem)] rounded-full bg-primary lg:block"
+  ></span>
+  <span
+    aria-hidden="true"
+    class="hero-circle absolute -right-16 bottom-20 hidden aspect-square h-[clamp(12rem,20vw,18rem)] rounded-full bg-accessibility/35 lg:block"
+  ></span>
+
+  <!-- Madre y padre -->
+  <div class="hero-in hero-in--left relative">
+    <Image
+      src={grupoIzquierda}
+      alt="Una mujer mayor con su celular y un hombre mayor con bastón que saluda, de pie uno junto al otro"
+      widths={[360, 540, 700]}
+      sizes="(min-width: 1024px) min(24vw, 21rem), 45vw"
+      loading="eager"
+      fetchpriority="high"
+      class={`${altura} w-auto`}
+    />
+  </div>
+
+  <!-- Hermana y hermano (en espejo para que miren al título) -->
+  <div class="hero-in hero-in--right relative">
+    <Image
+      src={grupoDerecha}
+      alt="Una mujer que señala hacia arriba y un joven sentado que mira en la misma dirección"
+      widths={[360, 540, 700]}
+      sizes="(min-width: 1024px) min(24vw, 21rem), 45vw"
+      loading="eager"
+      fetchpriority="high"
+      class={`${altura} w-auto -scale-x-100`}
+    />
+  </div>
 </div>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-circle {
+      animation: hero-pop 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+    .hero-in {
+      animation: hero-in 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s both;
+    }
+    .hero-in--left {
+      --desde: -2.5rem;
+    }
+    .hero-in--right {
+      --desde: 2.5rem;
+      animation-delay: 0.22s;
+    }
+    @keyframes hero-pop {
+      from {
+        opacity: 0;
+        scale: 0.7;
+      }
+    }
+    @keyframes hero-in {
+      from {
+        opacity: 0;
+        transform: translateX(var(--desde));
+      }
+    }
+  }
+</style>

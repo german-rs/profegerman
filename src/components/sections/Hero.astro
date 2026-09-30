@@ -1,5 +1,5 @@
 ---
-//src/components/sections/Hero.astro
+// src/components/sections/Hero.astro
 import { buildWhatsAppLink } from "../../lib/whatsapp";
 import HeroIllustration from "../ui/HeroIllustration.astro";
 
@@ -8,37 +8,31 @@ const whatsappHref = buildWhatsAppLink(
 );
 ---
 
-<section class="bg-[#FDF8F3] px-6 py-16 sm:py-20 lg:py-24">
-  <div
-    class="container grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16"
-  >
-    <div>
-      <p class="mb-4 font-semibold text-primary">
-        Clases de computación y celular
-      </p>
-      <h1
-        class="text-4xl font-bold leading-tight text-[#2E2A27] sm:text-5xl lg:text-6xl"
-      >
-        Aprende a tu ritmo, paso a paso y con confianza
-      </h1>
-      <p
-        class="my-6 max-w-[60ch] text-lg leading-relaxed text-[#2E2A27] sm:text-xl"
-      >
-        Clases particulares para adultos y personas mayores, con paciencia,
-        claridad y cercanía.
-      </p>
-      <div class="my-10 lg:hidden">
-        <HeroIllustration />
-      </div>
-      <div class="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
-        <a href={whatsappHref} class="button button--primary">
-          Cuéntame qué quieres aprender
-        </a>
-        <a href="/sobre-mi/" class="button button--secondary">
-          Conoce al profe
-        </a>
-      </div>
+<section
+  class="relative overflow-hidden bg-[#FDF8F3] px-6 pt-16 sm:pt-20 lg:min-h-[44rem]"
+>
+  <div class="container relative z-10 flex flex-col items-center text-center">
+    <p class="mb-4 font-semibold text-primary">
+      Clases de computación y celular
+    </p>
+      <h1 class="max-w-3xl text-balance text-4xl font-bold leading-tight text-[#2E2A27] sm:text-5xl">
+     Aprende a tu ritmo, paso a paso y con&nbsp;confianza
+   </h1>
+    <p
+      class="my-6 max-w-[44ch] text-lg leading-relaxed text-[#2E2A27] sm:text-xl"
+    >
+      Clases particulares para adultos y personas mayores, con paciencia,
+      claridad y cercanía.
+    </p>
+    <div
+      class="flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:flex-wrap sm:justify-center"
+    >
+      <a href={whatsappHref} class="button button--primary">
+        Cuéntame qué quieres aprender
+      </a>
+      <a href="/sobre-mi/" class="button button--secondary"> Conoce al profe </a>
     </div>
-    <div class="hidden lg:block"><HeroIllustration /></div>
   </div>
+
+  <HeroIllustration />
 </section>
