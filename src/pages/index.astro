@@ -4,6 +4,9 @@ import Hero from "../components/sections/Hero.astro";
 import PilaresMensaje from "../components/sections/PilaresMensaje.astro";
 import CursosGrid from "../components/sections/CursosGrid.astro";
 import AccesibilidadBanner from "../components/sections/AccesibilidadBanner.astro";
+
+import parejaMensaje from "/public/illustrations/pareja-mensaje.webp";
+
 import TestimoniosSection from "../components/sections/TestimoniosSection.astro";
 import CTAWhatsAppBanner from "../components/sections/CTAWhatsAppBanner.astro";
 import ContactoSection from "../components/sections/ContactoSection.astro";
@@ -18,9 +21,12 @@ import ContactoSection from "../components/sections/ContactoSection.astro";
 
   <CTAWhatsAppBanner
     titulo="¿Empezamos?"
-    texto="Escríbeme y cuéntame qué te gustaría aprender. Vemos juntos por dónde partir."
+    texto="Escríbeme y cuéntame qué te gustaría aprender."
     ctaMensaje="Hola profe, quiero saber más de las clases"
     ctaTexto="Escríbeme por WhatsApp"
+    imagen={parejaMensaje}
+    imagenAlt="Una mujer mayor muestra un mensaje en su celular a un hombre mayor, que lo mira sonriendo"
+    anclaje="cabeza"
   />
   <ContactoSection />
 </Layout>

@@ -2,7 +2,9 @@
 import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/sections/PageHero.astro";
 import CTAWhatsAppBanner from "../components/sections/CTAWhatsAppBanner.astro";
+import parejaMensaje from "/public/illustrations/pareja-mensaje.webp";
 import { Image } from "astro:assets";
+
 
 const ctaMensaje = "Hola profe, quiero conocerte más.";
 ---
@@ -184,5 +186,9 @@ const ctaMensaje = "Hola profe, quiero conocerte más.";
     texto="Cuéntame en qué te gustaría aprender. Podemos charlar sin compromiso."
     ctaMensaje={ctaMensaje}
     ctaTexto="Escríbeme por WhatsApp"
+    imagen={parejaMensaje}
+    imagenAlt="Una mujer mayor muestra un mensaje en su celular a un hombre mayor, que lo mira sonriendo"
+    anclaje="cabeza"
+
   />
 </Layout>

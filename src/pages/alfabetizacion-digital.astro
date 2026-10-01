@@ -2,10 +2,14 @@
 import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/sections/PageHero.astro";
 import ParaQuienSection from "../components/sections/ParaQuienSection.astro";
+
+import parejaMensaje from "/public/illustrations/pareja-mensaje.webp";
+
 import TemasCubiertosSection from "../components/sections/TemasCubiertosSection.astro";
 import CTAWhatsAppBanner from "../components/sections/CTAWhatsAppBanner.astro";
 
 const temas = [
+
   {
     titulo: "Computador y celular",
     descripcion:
@@ -80,5 +84,8 @@ const ctaMensaje = "Hola profe, quiero aprender alfabetización digital.";
     texto="Escríbeme y cuéntame qué te gustaría aprender primero."
     ctaMensaje={ctaMensaje}
     ctaTexto="Escríbeme por WhatsApp"
+        imagen={parejaMensaje}
+    imagenAlt="Una mujer mayor muestra un mensaje en su celular a un hombre mayor, que lo mira sonriendo"
+    anclaje="cabeza"
   />
 </Layout>

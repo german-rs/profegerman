@@ -5,6 +5,8 @@ import ParaQuienSection from "../components/sections/ParaQuienSection.astro";
 import TemasCubiertosSection from "../components/sections/TemasCubiertosSection.astro";
 import CTAWhatsAppBanner from "../components/sections/CTAWhatsAppBanner.astro";
 
+import parejaMensaje from "/public/illustrations/pareja-mensaje.webp";
+
 const temas = [
   {
     titulo: "Trámites en línea",
@@ -17,6 +19,7 @@ const temas = [
       "Habla cara a cara con tus familiares y amigos usando WhatsApp, Zoom o FaceTime.",
   },
   {
+
     titulo: "WhatsApp",
     descripcion:
       "Envía mensajes, fotos, audios y videollamadas. Aprende a usar los grupos con confianza.",
@@ -78,5 +81,8 @@ const ctaMensaje = "Hola profe, quiero aprender autonomía digital.";
     texto="Escríbeme y cuéntame qué te gustaría aprender primero."
     ctaMensaje={ctaMensaje}
     ctaTexto="Escríbeme por WhatsApp"
+            imagen={parejaMensaje}
+    imagenAlt="Una mujer mayor muestra un mensaje en su celular a un hombre mayor, que lo mira sonriendo"
+    anclaje="cabeza"
   />
 </Layout>

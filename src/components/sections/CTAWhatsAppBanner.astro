@@ -1,4 +1,13 @@
 ---
+// Franja transversal de WhatsApp.
+// - Sin `imagen`: diseño centrado de siempre (las páginas que no la pasen no cambian).
+// - Con `imagen`: tarjeta con la ilustración a la izquierda.
+//   anclaje="pies" (por defecto): la cabeza queda dentro y los pies sobresalen
+//     por debajo de la tarjeta. Para personajes sentados.
+//   anclaje="cabeza": los pies se apoyan en el borde inferior y la cabeza asoma
+//     por arriba. Para personajes de pie.
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import WhatsAppCTA from "../ui/WhatsAppCTA.astro";
 
 interface Props {
@@ -6,22 +15,91 @@ interface Props {
   texto?: string;
   ctaMensaje: string;
   ctaTexto: string;
+  nota?: string;
+  imagen?: ImageMetadata;
+  imagenAlt?: string;
+  anclaje?: "pies" | "cabeza";
 }
 
-const { titulo, texto, ctaMensaje, ctaTexto } = Astro.props;
+const {
+  titulo,
+  texto,
+  ctaMensaje,
+  ctaTexto,
+  nota,
+  imagen,
+  imagenAlt = "",
+  anclaje = "pies",
+} = Astro.props;
+
+const layouts = {
+  pies: {
+    seccion: "pb-24 pt-16 md:pb-28 md:pt-20",
+    tarjeta: "",
+    figura: "-mb-10 md:-mb-16",
+    mancha: "top-[6%]",
+  },
+  cabeza: {
+    seccion: "py-16 md:py-20",
+    tarjeta: "mt-12 md:mt-16",
+    figura: "md:-mt-11",
+    mancha: "bottom-[8%]",
+  },
+};
+const l = layouts[anclaje];
 ---
 
-<section
-  class="reveal container py-16 text-center md:py-20"
-  aria-labelledby="cta-whatsapp-titulo"
->
-  <h2 id="cta-whatsapp-titulo" class="text-2xl font-bold md:text-3xl">
-    {titulo}
-  </h2>
+{
+  imagen ? (
+    <section
+      class={`reveal container ${l.seccion}`}
+      aria-labelledby="cta-whatsapp-titulo"
+    >
+      <div
+        class={`flex flex-col rounded-3xl bg-primary/10 px-6 md:grid md:grid-cols-[auto_1fr] md:items-end md:gap-10 md:px-12 ${l.tarjeta}`}
+      >
+        <div class={`relative order-2 flex justify-center md:order-1 ${l.figura}`}>
+          <span
+            aria-hidden="true"
+            class={`absolute left-1/2 aspect-square h-[70%] -translate-x-1/2 rounded-full bg-primary/30 ${l.mancha}`}
+          ></span>
+          <Image
+            src={imagen}
+            alt={imagenAlt}
+            widths={[300, 450]}
+            sizes="(min-width: 768px) 14rem, 9rem"
+            class="relative block h-[14rem] w-auto md:h-[22rem]"
+            loading="lazy"
+          />
+        </div>
 
-  {texto && <p class="mx-auto mt-3 max-w-prose text-base">{texto}</p>}
-
-  <div class="mt-6 flex justify-center">
-    <WhatsAppCTA message={ctaMensaje}>{ctaTexto}</WhatsAppCTA>
-  </div>
-</section>
+        <div class="order-1 py-10 text-center md:order-2 md:self-center md:py-12 md:text-left">
+          <h2 id="cta-whatsapp-titulo" class="text-2xl font-bold md:text-3xl">
+            {titulo}
+          </h2>
+          {texto && (
+            <p class="mx-auto mt-3 max-w-prose text-base md:mx-0">{texto}</p>
+          )}
+          <div class="mt-6 flex justify-center md:justify-start">
+            <WhatsAppCTA message={ctaMensaje}>{ctaTexto}</WhatsAppCTA>
+          </div>
+          {nota && <p class="mt-4 text-base">{nota}</p>}
+        </div>
+      </div>
+    </section>
+  ) : (
+    <section
+      class="reveal container py-16 text-center md:py-20"
+      aria-labelledby="cta-whatsapp-titulo"
+    >
+      <h2 id="cta-whatsapp-titulo" class="text-2xl font-bold md:text-3xl">
+        {titulo}
+      </h2>
+      {texto && <p class="mx-auto mt-3 max-w-prose text-base">{texto}</p>}
+      <div class="mt-6 flex justify-center">
+        <WhatsAppCTA message={ctaMensaje}>{ctaTexto}</WhatsAppCTA>
+      </div>
+      {nota && <p class="mt-4 text-base">{nota}</p>}
+    </section>
+  )
+}
