@@ -2,60 +2,51 @@
   class="relative border-y border-black/0"
   aria-labelledby="accesibilidad-titulo"
 >
+  <!-- Franja de fondo: empieza 3rem más abajo para que la cabeza asome por arriba -->
   <div
-    class="absolute inset-x-0 bottom-0 bg-accessibility/10 pointer-events-none"
-    style="top: 3rem;"
+    class="pointer-events-none absolute inset-x-0 bottom-0 top-12 bg-accessibility/10"
     aria-hidden="true"
-  ></div>
+  >
+  </div>
 
   <div class="reveal container relative z-10 flex flex-col md:flex-row md:items-end">
-
     <!-- Columna izquierda: texto -->
     <div
-      class="flex flex-col items-center text-center md:items-start md:text-left justify-center gap-6 md:pr-8 md:w-1/2"
-      style="padding-top: 5rem; padding-bottom: 3rem;"
+      class="flex flex-col items-center justify-center gap-6 pb-8 pt-20 text-center md:w-1/2 md:items-start md:pb-12 md:pr-8 md:text-left"
     >
       <h2
         id="accesibilidad-titulo"
         class="text-3xl font-bold leading-snug md:text-4xl"
       >
-        Aprende a tu
-        <em class="font-serif not-italic italic font-normal"> propio ritmo</em>
+        Clases en Lengua de Señas Chilena
       </h2>
-      <p class="text-base leading-relaxed max-w-sm">
-        Manejo Lengua de Señas Chilena (LSCh) y ajusto cada clase — ritmo,
-        letra, apoyos visuales o auditivos — según lo que cada persona necesite.
+      <p class="max-w-sm text-base leading-relaxed">
+        Ajusto cada clase — ritmo, letra, apoyos visuales o auditivos — según
+        lo que cada persona necesite.
       </p>
-      <!-- CAMBIO: md:self-start en lugar de self-start -->
       <a class="button button--secondary md:self-start" href="/accesibilidad/">
         Conoce más sobre accesibilidad
       </a>
     </div>
 
-    <div class="hidden md:flex md:w-1/2 justify-center items-end">
+    <!-- Ilustración: una sola imagen para móvil y escritorio.
+         Los pies quedan sobre el borde inferior de la franja. -->
+    <div class="relative flex items-end justify-center md:w-1/2">
+      <!-- Mancha teal (permitida aquí: el tema es accesibilidad/LSCh) -->
+      <span
+        aria-hidden="true"
+        class="absolute bottom-[5%] left-1/2 aspect-square h-[72%] -translate-x-1/2 rounded-full bg-accessibility/30"
+      ></span>
+      <!-- -scale-x-100: el original mira a la derecha; así mira hacia el texto -->
       <img
         src="/illustrations/imagen-accesibilidad.webp"
-        alt="Persona aprendiendo computación con apoyo personalizado"
-        width="600"
-        height="600"
-        class="w-full max-w-[460px] block"
-        style="margin-top: -1rem; margin-bottom: -1rem;"
+        alt="Una mujer sonríe y saluda con la mano en alto"
+        width="381"
+        height="1000"
+        class="relative block h-[22rem] w-auto -scale-x-100 md:h-[28rem]"
         loading="lazy"
         decoding="async"
       />
     </div>
-
-    <!-- Mobile: imagen centrada -->
-    <img
-      src="/illustrations/imagen-accesibilidad.webp"
-      alt=""
-      aria-hidden="true"
-      width="600"
-      height="600"
-      class="md:hidden w-full max-w-[400px] mx-auto block object-contain py-6"
-      loading="lazy"
-      decoding="async"
-    />
-
   </div>
 </section>

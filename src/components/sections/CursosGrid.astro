@@ -1,5 +1,6 @@
 ---
 import CourseCard from "../ui/CourseCard.astro";
+import type { Props as CursoProps } from "../ui/CourseCard.astro";
 
 // Datos estáticos por ahora (content collections quedaron para otra
 // tarea, ver docs/ARCHITECTURE.md). Cuando se arme content.config.ts,
@@ -20,7 +21,7 @@ const cursos = [
     ],
     href: "/alfabetizacion-digital/",
     imagen: "/illustrations/imagen-alfabetizacion.webp",
-    acento: "primary" as const,
+    acento: "primary",
     imagenAlt: "Un hombre mayor mira con atención un notebook mientras el profe, a su lado, señala la pantalla",
   },
   {
@@ -36,10 +37,10 @@ const cursos = [
     ],
     href: "/autonomia-digital/",
     imagen: "/illustrations/imagen-autonomia.webp",
-    acento: "success" as const,
+    acento: "success",
     imagenAlt: "Una mujer saluda sonriendo durante una videollamada desde su celular",
   },
-];
+] satisfies CursoProps[];
 ---
 
 <section class="reveal container py-20 md:py-20" aria-labelledby="cursos-titulo">
