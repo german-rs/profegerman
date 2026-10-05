@@ -12,7 +12,7 @@ Astro 7 + Tailwind CSS v4. Explícitamente sin vanilla CSS/BEM ni Three.js
 | Texto principal | `#2E2A27` | Texto de cuerpo |
 | Accesibilidad (compartido con germanriveros.cl) | `#67C6C0` | Reservado exclusivamente a elementos de accesibilidad/LSCh — mismo significado semántico en ambos sitios |
 | Confirmación | `#6B9E78` | Estados de éxito (ej. "clase agendada") |
-|
+| Profe (azul suave, mismo tono que germanriveros.cl) | `#7E98CE` | Reservado a las ilustraciones del profe (círculos de fondo). Usar siempre con opacidad (`bg-profe/30`), nunca pleno. No usar para texto ni bordes: no cumple contraste sobre `#FDF8F3` |
 
 Estos valores son punto de partida. **Verificar contraste real con
 axe/WAVE antes de publicar** — meta AA en todo el sitio, AAA en texto
