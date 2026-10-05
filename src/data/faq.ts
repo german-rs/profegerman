@@ -42,6 +42,6 @@ export const faqGeneral: Faq[] = [
   {
     pregunta: "¿Cómo se paga y qué pasa si debo cancelar una clase?",
     respuesta:
-      "Se paga en efectivo o por transferencia. Puedes cancelar o cambiar tu clase sin costo avisándome con 24 horas de anticipación. Si surge una urgencia o una enfermedad, solo avísame y lo resolvemos.",
+      "Se paga en efectivo o por transferencia. Puedes cancelar o cambiar tu clase sin costo avisándome con anticipación. Si surge una urgencia o una enfermedad, solo avísame y lo resolvemos.",
   },
 ];
