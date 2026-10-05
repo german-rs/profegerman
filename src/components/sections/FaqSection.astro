@@ -1,0 +1,45 @@
+---
+import type { Faq } from "../../data/faq";
+
+interface Props {
+  titulo: string;
+  intro?: string;
+  preguntas: Faq[];
+}
+
+const { titulo, intro, preguntas } = Astro.props;
+---
+
+<section
+  id="preguntas-frecuentes"
+  class="reveal container py-16 md:py-20"
+  aria-labelledby="faq-titulo"
+>
+  <h2 id="faq-titulo" class="text-2xl font-bold md:text-3xl">{titulo}</h2>
+  {intro && <p class="mt-2 max-w-prose text-base">{intro}</p>}
+
+  <div class="mt-8 flex max-w-3xl flex-col gap-3">
+    {
+      preguntas.map(({ pregunta, respuesta }) => (
+        <details class="group rounded-lg bg-white/60 px-5">
+          <summary class="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 rounded-lg py-4 text-lg font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary [&::-webkit-details-marker]:hidden">
+            <span>{pregunta}</span>
+            <svg
+              aria-hidden="true"
+              class="size-5 shrink-0 text-primary motion-safe:transition-transform group-open:rotate-180"
+              viewBox="0 0 20 20"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 7.5 10 12.5 15 7.5" />
+            </svg>
+          </summary>
+          <p class="pb-5 pr-8 text-base leading-relaxed">{respuesta}</p>
+        </details>
+      ))
+    }
+  </div>
+</section>
