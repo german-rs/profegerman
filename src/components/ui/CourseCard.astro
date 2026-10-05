@@ -9,9 +9,11 @@ export interface Props {
   imagen?: string;
   imagenAlt?: string;
   acento?: "primary" | "success";
+  valor?: string;
+  modalidad?: string;
 }
 
-const { titulo, nivel, duracion, resumen, temas, href, imagen, imagenAlt, acento = "primary", } = Astro.props;
+const { titulo, nivel, duracion, resumen, temas, href, imagen, imagenAlt, acento = "primary", valor, modalidad } = Astro.props;
 
 const manchas = {
   primary: "bg-primary/30",
@@ -48,10 +50,13 @@ const manchas = {
       ))
     }
   </ul>
-  <p class="mt-4 text-sm">
-    <strong>Duración:</strong> {duracion}
-  </p>
+<dl class="mt-4 space-y-1 text-base">
+  <div class="flex gap-2"><dt class="font-bold">Duración:</dt><dd>{duracion}</dd></div>
+  {valor && <div class="flex gap-2"><dt class="font-bold">Valor:</dt><dd>{valor}</dd></div>}
+  {modalidad && <div class="flex gap-2"><dt class="font-bold">Modalidad:</dt><dd>{modalidad}</dd></div>}
+</dl>
   <a class="button button--secondary mt-6 self-start" href={href}>
     Ver detalles de {titulo}
   </a>
 </article>
+

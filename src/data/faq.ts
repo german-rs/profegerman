@@ -3,8 +3,6 @@ export interface Faq {
   respuesta: string;
 }
 
-// Preguntas frecuentes generales del sitio.
-// Revisa las respuestas marcadas en la conversación antes de publicar.
 export const faqGeneral: Faq[] = [
   {
     pregunta: "¿Cuánto cuesta cada clase?",
