@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "https://profegerman.cl",
-  trailingSlash: 'always',
+  trailingSlash: 'ignore',
   integrations: [
     partytown({
       config: {
