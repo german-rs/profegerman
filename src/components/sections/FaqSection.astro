@@ -9,7 +9,7 @@ interface Props {
   abrirPrimera?: boolean;
 }
 
-const { eyebrow, titulo, intro, preguntas, abrirPrimera = true } = Astro.props;
+const { eyebrow, titulo, intro, preguntas, abrirPrimera = false } = Astro.props;
 ---
 
 <section
@@ -37,8 +37,26 @@ const { eyebrow, titulo, intro, preguntas, abrirPrimera = true } = Astro.props;
               aria-hidden="true"
               class="flex size-8 shrink-0 items-center justify-center rounded-full border border-primary/40 text-xl leading-none text-primary motion-safe:transition-colors group-open:border-primary group-open:bg-primary group-open:text-white"
             >
-              <span class="group-open:hidden">+</span>
-              <span class="hidden group-open:inline">−</span>
+              <span
+                aria-hidden="true"
+                class="flex size-8 shrink-0 items-center justify-center rounded-full border border-primary/40 text-primary motion-safe:transition-colors group-open:border-primary group-open:bg-primary group-open:text-white"
+              >
+                <svg
+                  viewBox="0 0 16 16"
+                  class="size-4"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                >
+
+                <path d="M3 8h10" />
+                <path
+                  d="M8 3v10"
+                  class="origin-center [transform-box:fill-box] motion-safe:transition-transform motion-safe:duration-300 group-open:scale-y-0"
+                />
+                </svg>
+              </span>
             </span>
           </summary>
           <p class="max-w-[620px] pb-6 pr-12 text-base leading-relaxed">
