@@ -57,8 +57,6 @@ Antes de tocar código, leer en este orden:
 
 ## Stack
 
-## Stack
-
 - **[Astro 7](https://astro.build)** — framework principal, sitio estático.
 - **Tailwind CSS v4** — sistema de estilos.
 - **TypeScript** — en componentes `.astro` y en `src/lib/whatsapp.ts`.
