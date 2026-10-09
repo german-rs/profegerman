@@ -3,54 +3,90 @@ import "../styles/global.css";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
 import WhatsAppFloatingButton from "../components/ui/WhatsAppFloatingButton.astro";
+import { siteGraph } from "../lib/schema";
 
 interface Props {
   title?: string;
   description?: string;
   canonicalURL?: string | URL;
+  ogImage?: string;
+  ogImageAlt?: string;
+  ogType?: "website" | "article";
+  noindex?: boolean;
+  schema?: Record<string, unknown>[];
 }
 
 const {
   title = "Profe Germán | Clases de computación y celular",
   description = "Clases de computación, celular y alfabetización digital para adultos y personas mayores. Aprende a tu ritmo, paso a paso y con confianza.",
   canonicalURL = new URL(Astro.url.pathname, Astro.site),
+  ogImage = "/og-card.jpg",
+  ogImageAlt = "Profe Germán: clases de computación y celular para adultos y personas mayores",
+  ogType = "website",
+  noindex = false,
+  schema = [],
 } = Astro.props;
 
 const { BASE_URL } = import.meta.env;
----
+const ogImageURL = new URL(ogImage, Astro.site).href;
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [...siteGraph, ...schema],
+};
+---
 
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-    <!-- Google Tag Manager (vía Partytown, corre en un web worker) -->
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_CL" />
+    <meta property="og:site_name" content="Profe Germán" />
+
+    <!-- Twitter/X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
+
+    <!-- JSON-LD -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- Google Tag Manager (vía Partytown) -->
     <script type="text/partytown">
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != "dataLayer" ? "&l=" + l : "";
-            j.async = true;
-            j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, "script", "dataLayer", "GTM-5RFP2VWF");
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-5RFP2VWF");
     </script>
-    <!-- End Google Tag Manager -->
+
     <script>
       import "../scripts/reveal.ts";
     </script>
     <link rel="icon" type="image/x-icon" href={`${BASE_URL}favicon.ico`} />
-
     <meta name="generator" content={Astro.generator} />
-
-    <title>{title}</title>
-    
   </head>
 
   <body>
@@ -82,3 +118,8 @@ const { BASE_URL } = import.meta.env;
     <WhatsAppFloatingButton />
   </body>
 </html>
+
+
+
+
+
