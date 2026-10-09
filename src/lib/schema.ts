@@ -26,7 +26,7 @@ export const siteGraph = [
     "@id": IDS.business,
     name: "Profe Germán",
     url: `${SITE}/`,
-    image: `${SITE}/og-card.jpg`,
+    image: `${SITE}/og.png`,
     description:
       "Clases particulares de computación, celular y alfabetización digital a domicilio para adultos y personas mayores, con atención en Lengua de Señas Chilena.",
     telephone: "+56982960453",
