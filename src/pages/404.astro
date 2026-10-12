@@ -4,43 +4,49 @@ import illustration from '../../public/illustrations/404-img.webp';
 ---
 
 <Layout>
-	<main
-		class="flex min-h-screen items-center justify-center bg-[#fdf8f3] px-4 py-8 text-[#2e2a27]"
-	>
-		<section class="w-full max-w-md px-8 py-10 text-center sm:px-10">
-			<img
-				src={illustration.src}
-				width={illustration.width}
-				height={illustration.height}
-				alt="Ilustración de una persona de pie junto a un letrero con dos flechas, mostrando que hay más de un camino por seguir"
-				class="mx-auto mb-6 block h-auto w-full max-w-[220px]"
-			/>
+  <main
+    class="flex items-center justify-center bg-[#fdf8f3] px-4 py-12 text-[#2e2a27] sm:py-20"
+  >
+    <section class="w-full max-w-xl px-4 text-center sm:px-10">
+      <!-- Ilustración: el círculo va detrás del profe (izquierda), no del centro -->
+      <div class="relative mx-auto mb-6 w-full max-w-[300px] sm:max-w-[380px]">
+        <div
+          aria-hidden="true"
+          class="absolute left-[1%] top-[22%] aspect-square w-[72%] rounded-full bg-profe/30"
+        >
+        </div>
+        <img
+          src={illustration.src}
+          width={illustration.width}
+          height={illustration.height}
+          alt="El profe junto a un letrero con dos flechas, invitando a elegir un camino"
+          loading="eager"
+          decoding="async"
+          class="relative z-10 block h-auto w-full"
+        />
+      </div>
 
-			<h1
-				class="mb-3 text-[1.75rem] font-bold leading-[1.3] tracking-tight"
-			>
-				Sigamos por un buen camino
-			</h1>
+      <h1 class="mb-3 text-[1.75rem] font-bold leading-[1.3] tracking-tight">
+        Sigamos por un buen camino
+      </h1>
+      <p class="mb-8 text-lg leading-[1.6]">
+        Este enlace cambió de lugar. Desde aquí puedes llegar a lo que buscabas.
+      </p>
 
-			<p class="mb-8 text-lg leading-[1.6]">
-				Este enlace cambió de lugar. Desde aquí puedes llegar a lo que buscabas.
-			</p>
-
-			<div class="flex flex-col justify-center gap-4 sm:flex-row">
-				<a
-					href="/"
-					class="inline-flex min-h-[44px] items-center justify-center rounded-md bg-[#D96C4B] px-6 py-3 font-semibold text-white motion-safe:transition-colors hover:bg-[#c25d3f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D96C4B]"
-				>
-					Volver al inicio
-				</a>
-
-				<a
-                    href="/alfabetizacion-digital/"
-                    class="inline-flex min-h-[44px] items-center justify-center rounded-md border-2 border-[#2E2A27] px-6 py-3 font-semibold text-[#2E2A27] motion-safe:transition-colors hover:bg-[#2E2A27] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2E2A27]"
-                >
-					Ver los cursos
-				</a>
-			</div>
-		</section>
-	</main>
+      <div class="flex flex-col justify-center gap-4 sm:flex-row">
+        <a
+          href="/"
+          class="inline-flex min-h-[44px] items-center justify-center rounded-md bg-[#D96C4B] px-6 py-3 font-semibold text-white motion-safe:transition-colors hover:bg-[#c25d3f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D96C4B]"
+        >
+          Volver al inicio
+        </a>
+        <a
+          href="/alfabetizacion-digital/"
+          class="inline-flex min-h-[44px] items-center justify-center rounded-md border-2 border-[#2E2A27] px-6 py-3 font-semibold text-[#2E2A27] motion-safe:transition-colors hover:bg-[#2E2A27] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2E2A27]"
+        >
+          Ver los cursos
+        </a>
+      </div>
+    </section>
+  </main>
 </Layout>
