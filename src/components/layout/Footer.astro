@@ -24,7 +24,7 @@ const olaPath = "M0,30 C200,60 400,0 600,30 C800,60 1000,0 1200,30 L1200,60 L0,6
 
     
     <!-- Escena: olas a ancho completo, personajes centrados -->
-    <div class="relative isolate mt-10 overflow-x-clip" aria-hidden="true">
+    <div class="escena relative isolate mt-10 overflow-x-clip" aria-hidden="true">
       <!-- Ola de atrás (z-[1]: queda por delante del círculo, que está en z-0) -->
       <div class="capa capa-atras absolute inset-x-0 bottom-0 z-[1] flex h-[56%] flex-col">
         <div class="relative h-10 shrink-0 overflow-hidden md:h-14">
@@ -129,6 +129,8 @@ const olaPath = "M0,30 C200,60 400,0 600,30 C800,60 1000,0 1200,30 L1200,60 L0,6
     --ola-atras: #dae3d2;
     --ola-frente: #f2cec1;
     --sol: #f8dfd5;
+    --sol-dia: #fbeadf;    /* durazno muy pálido */
+    --sol-ocaso: #f3b9a3;  /* terracota suave */
   }
 
   .capa-atras { --c: var(--ola-atras); }
@@ -149,7 +151,44 @@ const olaPath = "M0,30 C200,60 400,0 600,30 C800,60 1000,0 1200,30 L1200,60 L0,6
     to { transform: translateX(-50%); }
   }
 
+  .sol {
+  background: color-mix(in srgb, var(--sol-ocaso) calc(var(--p, 1) * 100%), var(--sol-dia));
+  transform: translateY(calc(-30% + var(--p, 1) * 40%));
+  will-change: transform;
+}
+
+
+
+
   @media (prefers-reduced-motion: reduce) {
     .wave-track { animation: none; }
   }
 </style>
+
+<script>
+  const escena = document.querySelector<HTMLElement>(".escena");
+  const reducir = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  if (escena && !reducir.matches) {
+    let pendiente = false;
+
+    const actualizar = () => {
+      const r = escena.getBoundingClientRect();
+      // 0 cuando la escena empieza a entrar por abajo; 1 cuando ya entró completa
+      const p = Math.min(1, Math.max(0, (window.innerHeight - r.top) / r.height));
+      escena.style.setProperty("--p", p.toFixed(3));
+      pendiente = false;
+    };
+
+    const alScroll = () => {
+      if (!pendiente) {
+        pendiente = true;
+        requestAnimationFrame(actualizar);
+      }
+    };
+
+    window.addEventListener("scroll", alScroll, { passive: true });
+    window.addEventListener("resize", alScroll);
+    actualizar();
+  }
+</script>
