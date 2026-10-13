@@ -5,7 +5,7 @@ import PageHeroProfe from "../components/sections/PageHeroProfe.astro";
 import profeHero from "/public/illustrations/sobre-mi-hero.webp";
 import CTAWhatsAppBanner from "../components/sections/CTAWhatsAppBanner.astro";
 import parejaMensaje from "/public/illustrations/pareja-mensaje.webp";
-
+import profeMadre from "/public/illustrations/sobre-mi-quien-soy.webp";
 import { Image } from "astro:assets";
 
 
@@ -27,30 +27,68 @@ const ctaMensaje = "Hola profe, quiero conocerte más.";
 />
 
   <!-- Sección: Quién soy -->
-  <section class="container py-16 md:py-20" aria-labelledby="quien-soy-titulo">
-    <div class="max-w-3xl">
+<section
+  class="relative before:absolute before:inset-0 before:-z-20 before:bg-[#e4ead9]"
+  aria-labelledby="quien-soy-titulo"
+>
+  <div class="container grid items-center gap-12 py-16 md:grid-cols-[3fr_2fr] md:gap-16 md:py-24">
+    <div class="max-w-prose">
       <h2 id="quien-soy-titulo" class="text-3xl font-bold">Quién soy</h2>
 
-      <p class="mt-6 max-w-prose text-lg">
-        Me llamo <strong>Germán Riveros</strong>. Soy <strong>Ingeniero en
-        Informática</strong> y tengo un <strong>Magíster en Docencia para la
-        Educación Superior</strong>. Vivo en Santiago, Chile.
+      <p class="mt-6 text-2xl font-bold leading-snug md:text-3xl">
+        Que aprendas a usar la tecnología sin sentirte perdido.
       </p>
 
-      <p class="mt-6 max-w-prose text-lg">
-        He trabajado 15 años en tecnología: arreglando computadores, escribiendo
-        software, enseñando en universidades, y ahora dando clases
-        particulares. Esa combinación de experiencia técnica y pedagógica es lo
-        que me hace diferente como profesor.
+      <p class="mt-6 text-lg">
+        Quiero que entiendas qué estás haciendo y por qué, no solo que sigas
+        botones sin saber qué pasará después.
       </p>
 
-      <p class="mt-6 max-w-prose text-lg">
-        Lo que quiero es simple: que aprendas a usar la tecnología sin
-        sentirte perdido. Que entiendas qué estás haciendo y por qué, no
-        solo que sigas botones sin saber qué pasará después.
+      <p class="mt-6 text-lg">
+        Me llamo <strong>Germán Riveros</strong>. He trabajado en tecnología
+        arreglando computadores, escribiendo software y enseñando en
+        educación superior, y ahora doy clases particulares. Esa combinación de
+        experiencia técnica y pedagógica es lo que me hace diferente como
+        profesor.
       </p>
+
+      <ul class="mt-8 flex flex-wrap gap-3">
+        {
+          [
+            "Ingeniero en Informática",
+            "Magíster en Docencia para la Educación Superior",
+            "Lengua de Señas Chilena",
+            "Santiago · clases a domicilio",
+          ].map((dato) => (
+            <li class="rounded-full border border-black/10 bg-white/70 px-4 py-2 text-base font-bold">
+              {dato}
+            </li>
+          ))
+        }
+      </ul>
     </div>
-  </section>
+
+    <!-- Destino del círculo: aquí aterriza y se convierte en arco -->
+    <div class="mx-auto w-full max-w-sm md:max-w-none">
+      <div data-destino class="relative aspect-[4/5] w-full">
+        <div data-destino-fondo class="arco absolute inset-0 bg-profe/30" aria-hidden="true"></div>
+        <Image
+          data-destino-img
+          src={profeMadre}
+          alt="Una mujer mayor usa un computador portátil mientras Germán, sentado a su lado, le muestra algo en la pantalla"
+          class="relative h-full w-full object-contain"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Arco: mitad superior redonda y esquinas inferiores suaves (aspecto 4:5) */
+  .arco {
+    border-radius: 50% 50% 1.5rem 1.5rem / 40% 40% 1.5rem 1.5rem;
+  }
+</style>
 
   <!-- Sección: Mi experiencia -->
   <section

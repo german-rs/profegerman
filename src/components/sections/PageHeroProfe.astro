@@ -106,17 +106,32 @@ const {
   const capas = document.querySelectorAll<HTMLElement>("[data-parallax]");
   const hero = document.querySelector<HTMLElement>("[data-hero]");
   const circulo = document.querySelector<HTMLElement>("[data-circulo]");
+  const interno = circulo?.firstElementChild as HTMLElement | null;
   const escena = circulo?.parentElement;
+  const destino = document.querySelector<HTMLElement>("[data-destino]");
+  const fondoDestino = document.querySelector<HTMLElement>("[data-destino-fondo]");
+  const imgDestino = document.querySelector<HTMLElement>("[data-destino-img]");
   const reducirMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  if (hero && circulo && escena && !reducirMovimiento.matches) {
+  if (hero && circulo && interno && escena && !reducirMovimiento.matches) {
     const encoge = Number(circulo.dataset.shrink ?? 0);
-    let inicioY = 0; // centro de la escena en la página, con scroll 0
-    let centroX = 0; // centro horizontal de la escena
+    const RADIO_ABAJO = 24; // 1.5rem, igual que .arco
+    const esAncho = window.matchMedia("(min-width: 768px)");
+    const diametro = () => (esAncho.matches ? 384 : 288); // size-96 / size-72
+
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+    const limitar = (t: number) => Math.min(Math.max(t, 0), 1);
+    const suave = (t: number) => t * t * (3 - 2 * t);
+
+    let inicioY = 0;
+    let centroX = 0;
     let pendiente = false;
 
-    // Con movimiento permitido, el círculo pasa a estar fijo a la pantalla
-    circulo.style.position = "fixed";
+    // El círculo pasa a ser fijo y lo controla el script
+    Object.assign(circulo.style, { position: "fixed", inset: "0 auto auto 0", display: "block" });
+    Object.assign(interno.style, { width: "100%", height: "100%", borderRadius: "inherit" });
+    if (fondoDestino) fondoDestino.style.opacity = "0";
+    if (imgDestino) imgDestino.style.opacity = "0";
 
     const medir = () => {
       const r = escena.getBoundingClientRect();
@@ -126,23 +141,49 @@ const {
 
     const actualizar = () => {
       const y = Math.max(window.scrollY, 0);
-      const vw = document.documentElement.clientWidth;
       const vh = document.documentElement.clientHeight;
 
-      // Progreso del viaje (0 a 1) con frenado suave
-      const recorrido = hero.offsetHeight * 0.8;
-      const p = Math.min(y / recorrido, 1);
+      // Fase 1: baja por detrás del hero y se encoge
+      const p = limitar(y / (hero.offsetHeight * 0.8));
       const s = 1 - (1 - p) ** 2;
-
-      // Dónde se queda el círculo en la pantalla
+      const d = diametro() * (1 - s * encoge);
       const reposo = vh * 0.55;
-      const meta = inicioY + (reposo - inicioY) * s;
-      const sigueLaPagina = inicioY - y;
-      const posY = Math.max(sigueLaPagina, meta);
 
-      circulo.style.transform = `translate3d(${centroX - vw / 2}px, ${posY - vh / 2}px, 0) scale(${1 - s * encoge})`;
+      let x = centroX;
+      let yc = Math.max(inicioY - y, inicioY + (reposo - inicioY) * s);
+      let w = d;
+      let h = d;
+      let rArriba = d / 2;
+      let rAbajo = d / 2;
+      let m = 0;
 
-      // Resto de capas: parallax simple
+      // Fase 2: se transforma en el arco de "Quién soy"
+      if (destino) {
+        const dr = destino.getBoundingClientRect();
+        const fin = Math.max(dr.top + y - vh * 0.2, 60);
+        const inicio = Math.max(fin - vh * 0.9, 0);
+        m = suave(limitar((y - inicio) / (fin - inicio)));
+
+        x = lerp(x, dr.left + dr.width / 2, m);
+        yc = lerp(yc, dr.top + dr.height / 2, m);
+        w = lerp(d, dr.width, m);
+        h = lerp(d, dr.height, m);
+        rArriba = lerp(d / 2, dr.width / 2, m);
+        rAbajo = lerp(d / 2, RADIO_ABAJO, m);
+      }
+
+      circulo.style.width = `${w}px`;
+      circulo.style.height = `${h}px`;
+      circulo.style.borderRadius = `${rArriba}px ${rArriba}px ${rAbajo}px ${rAbajo}px`;
+      circulo.style.transform = `translate3d(${x - w / 2}px, ${yc - h / 2}px, 0)`;
+
+      // Al aterrizar, el arco real toma el relevo y la ilustración aparece
+      const aterrizado = m > 0.999;
+      circulo.style.opacity = aterrizado ? "0" : "1";
+      if (fondoDestino) fondoDestino.style.opacity = aterrizado ? "1" : "0";
+      if (imgDestino) imgDestino.style.opacity = String(suave(limitar((m - 0.6) / 0.4)));
+
+      // Parallax simple del resto de capas (el profe del hero)
       const yHero = Math.min(y, hero.offsetHeight);
       capas.forEach((capa) => {
         const velocidad = Number(capa.dataset.speed ?? 0);
