@@ -111,11 +111,16 @@ const {
   const destino = document.querySelector<HTMLElement>("[data-destino]");
   const fondoDestino = document.querySelector<HTMLElement>("[data-destino-fondo]");
   const imgDestino = document.querySelector<HTMLElement>("[data-destino-img]");
+  const linea = document.querySelector<HTMLElement>("[data-linea]");
+  const progreso = document.querySelector<HTMLElement>("[data-progreso]");
+  const hitos = Array.from(document.querySelectorAll<HTMLElement>("[data-hito]"));
   const reducirMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   if (hero && circulo && interno && escena && !reducirMovimiento.matches) {
     const encoge = Number(circulo.dataset.shrink ?? 0);
     const RADIO_ABAJO = 24; // 1.5rem, igual que .arco
+    const PUNTO = 16; // diámetro del punto en la línea de tiempo
+    const ANCLA = 0.5; // altura de la pantalla donde viaja el punto
     const esAncho = window.matchMedia("(min-width: 768px)");
     const diametro = () => (esAncho.matches ? 384 : 288); // size-96 / size-72
 
@@ -125,6 +130,8 @@ const {
 
     let inicioY = 0;
     let centroX = 0;
+    let hitosY: number[] = [];
+    let lineaX = 0;
     let pendiente = false;
 
     // El círculo pasa a ser fijo y lo controla el script
@@ -132,16 +139,26 @@ const {
     Object.assign(interno.style, { width: "100%", height: "100%", borderRadius: "inherit" });
     if (fondoDestino) fondoDestino.style.opacity = "0";
     if (imgDestino) imgDestino.style.opacity = "0";
+    if (linea) linea.classList.add("con-recorrido");
 
     const medir = () => {
       const r = escena.getBoundingClientRect();
       inicioY = r.top + window.scrollY + r.height / 2;
       centroX = r.left + r.width / 2;
+
+      if (linea && hitos.length) {
+        const marcas = hitos.map((h) =>
+          (h.querySelector("[data-marca]") as HTMLElement).getBoundingClientRect()
+        );
+        hitosY = marcas.map((m) => m.top + window.scrollY + m.height / 2);
+        lineaX = marcas[0].left + marcas[0].width / 2;
+      }
     };
 
     const actualizar = () => {
       const y = Math.max(window.scrollY, 0);
       const vh = document.documentElement.clientHeight;
+      const a = vh * ANCLA;
 
       // Fase 1: baja por detrás del hero y se encoge
       const p = limitar(y / (hero.offsetHeight * 0.8));
@@ -155,11 +172,15 @@ const {
       let h = d;
       let rArriba = d / 2;
       let rAbajo = d / 2;
-      let m = 0;
+      let m = 0; // progreso de la transformación en arco
+      let m3 = 0; // progreso de la transformación en punto
+      let colorPct = 30;
+      let puntoY: number | null = null; // posición del punto en la página, cuando ya llegó a la línea
 
-      // Fase 2: se transforma en el arco de "Quién soy"
       if (destino) {
         const dr = destino.getBoundingClientRect();
+
+        // Fase 2: se transforma en el arco de "Quién soy"
         const fin = Math.max(dr.top + y - vh * 0.2, 60);
         const inicio = Math.max(fin - vh * 0.9, 0);
         m = suave(limitar((y - inicio) / (fin - inicio)));
@@ -170,18 +191,56 @@ const {
         h = lerp(d, dr.height, m);
         rArriba = lerp(d / 2, dr.width / 2, m);
         rAbajo = lerp(d / 2, RADIO_ABAJO, m);
+
+        // Fases 3 y 4: el arco se encoge hasta un punto y recorre la línea
+        if (linea && hitosY.length) {
+          const P0 = hitosY[0];
+          const P1 = hitosY[hitosY.length - 1];
+          const objetivo = Math.min(Math.max(y + a, P0), P1); // dónde está el punto en la página
+          const centroArco = dr.top + y + dr.height / 2;
+          const inicio3 = Math.max(centroArco - a, fin + vh * 0.2);
+          const fin3 = Math.max(P0 - a, inicio3 + vh * 0.5);
+          m3 = suave(limitar((y - inicio3) / (fin3 - inicio3)));
+
+          if (m3 > 0) {
+            x = lerp(dr.left + dr.width / 2, lineaX, m3);
+            yc = lerp(centroArco, objetivo, m3) - y;
+            w = lerp(dr.width, PUNTO, m3);
+            h = lerp(dr.height, PUNTO, m3);
+            rArriba = w / 2;
+            rAbajo = lerp(RADIO_ABAJO, w / 2, m3);
+            colorPct = 30 + 70 * m3;
+          }
+          if (m3 >= 0.999) puntoY = objetivo;
+        }
       }
 
       circulo.style.width = `${w}px`;
       circulo.style.height = `${h}px`;
       circulo.style.borderRadius = `${rArriba}px ${rArriba}px ${rAbajo}px ${rAbajo}px`;
       circulo.style.transform = `translate3d(${x - w / 2}px, ${yc - h / 2}px, 0)`;
+      interno.style.backgroundColor =
+        m3 > 0 ? `color-mix(in srgb, var(--color-profe) ${colorPct}%, transparent)` : "";
 
-      // Al aterrizar, el arco real toma el relevo y la ilustración aparece
-      const aterrizado = m > 0.999;
+      // Mientras el arco está quieto, el arco real toma el relevo
+      const aterrizado = m > 0.999 && m3 <= 0;
       circulo.style.opacity = aterrizado ? "0" : "1";
       if (fondoDestino) fondoDestino.style.opacity = aterrizado ? "1" : "0";
-      if (imgDestino) imgDestino.style.opacity = String(suave(limitar((m - 0.6) / 0.4)));
+      if (imgDestino) {
+        const entra = suave(limitar((m - 0.6) / 0.4));
+        const sale = suave(limitar(m3 / 0.4));
+        imgDestino.style.opacity = String(entra * (1 - sale));
+      }
+
+      // Hitos: se encienden cuando el punto los alcanza
+      if (linea && hitosY.length) {
+        hitos.forEach((hito, i) => {
+          hito.classList.toggle("is-activo", puntoY !== null && puntoY >= hitosY[i] - 1);
+        });
+        if (progreso) {
+          progreso.style.height = puntoY !== null ? `${puntoY - hitosY[0]}px` : "0px";
+        }
+      }
 
       // Parallax simple del resto de capas (el profe del hero)
       const yHero = Math.min(y, hero.offsetHeight);

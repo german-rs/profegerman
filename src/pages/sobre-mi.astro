@@ -10,6 +10,30 @@ import { Image } from "astro:assets";
 
 
 const ctaMensaje = "Hola profe, quiero conocerte más.";
+
+const hitos = [
+  {
+    titulo: "Soporte técnico",
+    texto:
+      "Empecé arreglando computadores y resolviendo los problemas del día a día de las personas. Ahí aprendí a explicar sin jerga a quien necesita ayuda y no sabe por dónde empezar.",
+  },
+  {
+    titulo: "Docencia en educación superior",
+    texto:
+      "Durante varios años fui profesor en institutos profesionales y universidades, enseñando programación, redes y sistemas operativos. Eso me enseñó a ser paciente, a explicar de distintas formas y a ver dónde se atascan los alumnos.",
+  },
+  {
+    titulo: "Desarrollo y consultoría",
+    texto:
+      "No solo enseño teoría: he trabajado como desarrollador y consultor. Por eso, cuando te muestro un computador, uso lo que realmente existe hoy y no un manual de hace 20 años.",
+  },
+  {
+    titulo: "Clases particulares",
+    texto:
+      "Hoy enseño uno a uno, a domicilio y a tu ritmo, con toda esa experiencia puesta al servicio de una sola persona.",
+  },
+];
+
 ---
 
 <Layout
@@ -88,72 +112,96 @@ const ctaMensaje = "Hola profe, quiero conocerte más.";
   .arco {
     border-radius: 50% 50% 1.5rem 1.5rem / 40% 40% 1.5rem 1.5rem;
   }
+  /* Línea de tiempo: por defecto (sin JS o con "reducir movimiento") todo se ve encendido */
+.hito::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 14px;
+  width: 2px;
+  height: 100%;
+  background: var(--color-profe);
+}
+.hito:last-child::before {
+  display: none;
+}
+.marca {
+  background: var(--color-profe);
+  border-color: var(--color-profe);
+}
+
+/* Con el recorrido activo, todo parte apagado y se enciende al pasar el punto */
+.con-recorrido .hito::before {
+  background: rgb(0 0 0 / 0.1);
+}
+.con-recorrido .hito .marca {
+  background: transparent;
+  border-color: rgb(0 0 0 / 0.2);
+  transition: background-color 0.3s, border-color 0.3s;
+}
+.con-recorrido .hito .contenido {
+  opacity: 0.55;
+  transform: translateY(6px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+.con-recorrido .hito.is-activo .marca {
+  background: var(--color-profe);
+  border-color: var(--color-profe);
+}
+.con-recorrido .hito.is-activo .contenido {
+  opacity: 1;
+  transform: none;
+}
 </style>
 
   <!-- Sección: Mi experiencia -->
-  <section
-    class="border-y border-black/10 py-16 md:py-20"
-    aria-labelledby="experiencia-titulo"
-  >
-    <div class="container">
-      <div class="max-w-3xl">
-        <h2 id="experiencia-titulo" class="text-3xl font-bold">
-          Mi experiencia
-        </h2>
+<!-- Sección: Mi experiencia -->
+<section class="py-16 md:py-24" aria-labelledby="experiencia-titulo">
+  <div class="container">
+    <div class="max-w-3xl">
+      <h2 id="experiencia-titulo" class="text-3xl font-bold">Mi experiencia</h2>
 
-        <div class="mt-10 space-y-8">
-          <!-- Item 1: Enseñanza en universidades -->
-          <div>
-            <h3 class="text-xl font-bold">He enseñado en universidades</h3>
-            <p class="mt-3 max-w-prose text-lg">
-              Durante varios años he sido profesor en institutos profesionales,
-              enseñando programación, redes, sistemas operativos. Eso me enseñó
-              a ser paciente, a explicar de distintas formas, a ver dónde se
-              atascan los alumnos.
-            </p>
-          </div>
+      <div class="relative mt-12" data-linea>
+        <!-- Tramo de la línea que el punto ya recorrió -->
+        <span
+          class="absolute left-[7px] top-[14px] w-0.5 bg-profe"
+          style="height: 0"
+          data-progreso
+          aria-hidden="true"
+        ></span>
 
-          <!-- Item 2: Experiencia técnica -->
-          <div>
-            <h3 class="text-xl font-bold">He construido software</h3>
-            <p class="mt-3 max-w-prose text-lg">
-              No solo enseño teoría. He trabajado como desarrollador y
-              consultor. Eso significa que cuando te muestro un computador, no
-              estoy leyendo un manual de 20 años atrás — estoy usando lo que
-              realmente existe hoy.
-            </p>
-          </div>
+        <ol>
+          {
+            hitos.map((hito) => (
+              <li class="hito relative pb-12 pl-10 last:pb-0 md:pl-14" data-hito>
+                <span
+                  class="marca absolute left-0 top-[6px] size-4 rounded-full border-2"
+                  data-marca
+                  aria-hidden="true"
+                />
+                <div class="contenido">
+                  <h3 class="text-xl font-bold">{hito.titulo}</h3>
+                  <p class="mt-3 max-w-prose text-lg">{hito.texto}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
 
-          <!-- Item 3: Accesibilidad y LSCh -->
-          <div>
-            <h3 class="text-xl font-bold">
-              Hablo Lengua de Señas Chilena
-            </h3>
-            <p class="mt-3 max-w-prose text-lg">
-              La accesibilidad no es un agregado para mí, es parte de cómo
-              enseño. Si tienes dificultades auditivas o prefieres aprender en
-              lengua de señas, aquí estoy. También puedo adaptar clases para
-              personas con baja visión, dislexia, o cualquier necesidad que
-              tengas.
-            </p>
-          </div>
-
-          <!-- Item 4: Certificación 
-
-          <div>
-            <h3 class="text-xl font-bold">Estoy certificado</h3>
-            <p class="mt-3 max-w-prose text-lg">
-              Soy relator certificado por SENCE para organismos técnicos de
-              capacitación (OTECs). Eso significa que si en algún momento
-              quieres que una clase sea parte de tu capacitación laboral, la
-              documentación existe.
-            </p>
-          </div>
-          -->
-        </div>
+      <!-- Cierre: accesibilidad -->
+      <div class="mt-12 rounded-lg border border-black/10 bg-white/60 p-6 md:p-8">
+        <h3 class="text-xl font-bold">Hablo Lengua de Señas Chilena</h3>
+        <p class="mt-3 max-w-prose text-lg">
+          La accesibilidad no es un agregado para mí, es parte de cómo enseño.
+          Si tienes dificultades auditivas o prefieres aprender en lengua de
+          señas, aquí estoy. También puedo adaptar clases para personas con baja
+          visión, dislexia, o cualquier necesidad que tengas.
+        </p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Sección: Cómo trabajo -->
   <section class="container py-16 md:py-20" aria-labelledby="como-trabajo-titulo">
