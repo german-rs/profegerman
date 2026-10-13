@@ -28,7 +28,7 @@ const {
 } = Astro.props;
 ---
 
-<section class="overflow-hidden">
+<section class="overflow-x-clip" data-hero>
   <div class="container grid items-center gap-10 py-16 md:grid-cols-[2fr_3fr] md:gap-16 md:py-24">
     <!-- Texto: primero en móvil, a la derecha en escritorio -->
     <div class="order-1 max-w-3xl md:order-2">
@@ -52,17 +52,19 @@ const {
     </div>
 
 <!-- Escena -->
-<!-- Escena -->
 <div class="relative order-2 mx-auto flex h-[26rem] w-full max-w-sm items-end justify-center md:order-1 md:h-[34rem]">
-  <!-- Capa 1: círculo (la que más se retrasa) -->
-  <div
-    class="absolute inset-0 flex items-center justify-center"
-    data-parallax
-    data-speed="0.25"
-    aria-hidden="true"
-  >
-    <div class="hero-circulo size-72 rounded-full bg-profe/30 md:size-96"></div>
-  </div>
+  
+    <!-- Capa 1: círculo (se retrasa y se encoge al hacer scroll) -->
+    <div
+  class="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center"
+  data-circulo
+  data-shrink="0.35"
+  aria-hidden="true"
+    >
+    <div class="hero-circulo size-72 rounded-full bg-profe/30 md:size-96">
+    </div>
+    
+    </div>
 
   <!-- Capa 2: el profe -->
   <div class="relative h-full" data-parallax data-speed="0.1">
@@ -101,33 +103,70 @@ const {
 </style>
 
 <script>
-  // Parallax: solo en pantallas medianas o más y sin "reducir movimiento"
   const capas = document.querySelectorAll<HTMLElement>("[data-parallax]");
-  const permitido = window.matchMedia(
-    "(prefers-reduced-motion: no-preference) and (min-width: 768px)"
-  );
+  const hero = document.querySelector<HTMLElement>("[data-hero]");
+  const circulo = document.querySelector<HTMLElement>("[data-circulo]");
+  const escena = circulo?.parentElement;
+  const reducirMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  if (capas.length && permitido.matches) {
+  if (hero && circulo && escena && !reducirMovimiento.matches) {
+    const encoge = Number(circulo.dataset.shrink ?? 0);
+    let inicioY = 0; // centro de la escena en la página, con scroll 0
+    let centroX = 0; // centro horizontal de la escena
     let pendiente = false;
 
+    // Con movimiento permitido, el círculo pasa a estar fijo a la pantalla
+    circulo.style.position = "fixed";
+
+    const medir = () => {
+      const r = escena.getBoundingClientRect();
+      inicioY = r.top + window.scrollY + r.height / 2;
+      centroX = r.left + r.width / 2;
+    };
+
     const actualizar = () => {
-      const y = Math.min(window.scrollY, 800);
+      const y = Math.max(window.scrollY, 0);
+      const vw = document.documentElement.clientWidth;
+      const vh = document.documentElement.clientHeight;
+
+      // Progreso del viaje (0 a 1) con frenado suave
+      const recorrido = hero.offsetHeight * 0.8;
+      const p = Math.min(y / recorrido, 1);
+      const s = 1 - (1 - p) ** 2;
+
+      // Dónde se queda el círculo en la pantalla
+      const reposo = vh * 0.55;
+      const meta = inicioY + (reposo - inicioY) * s;
+      const sigueLaPagina = inicioY - y;
+      const posY = Math.max(sigueLaPagina, meta);
+
+      circulo.style.transform = `translate3d(${centroX - vw / 2}px, ${posY - vh / 2}px, 0) scale(${1 - s * encoge})`;
+
+      // Resto de capas: parallax simple
+      const yHero = Math.min(y, hero.offsetHeight);
       capas.forEach((capa) => {
         const velocidad = Number(capa.dataset.speed ?? 0);
-        capa.style.transform = `translate3d(0, ${y * velocidad}px, 0)`;
+        capa.style.transform = `translate3d(0, ${yHero * velocidad}px, 0)`;
       });
+
       pendiente = false;
     };
 
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (!pendiente) {
-          pendiente = true;
-          requestAnimationFrame(actualizar);
-        }
-      },
-      { passive: true }
-    );
+    const pedirActualizacion = () => {
+      if (!pendiente) {
+        pendiente = true;
+        requestAnimationFrame(actualizar);
+      }
+    };
+
+    const recalcular = () => {
+      medir();
+      pedirActualizacion();
+    };
+
+    window.addEventListener("scroll", pedirActualizacion, { passive: true });
+    window.addEventListener("resize", recalcular);
+    window.addEventListener("load", recalcular);
+    recalcular();
   }
 </script>
