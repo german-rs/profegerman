@@ -1,8 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/sections/PageHero.astro";
+import PageHeroProfe from "../components/sections/PageHeroProfe.astro";
+import profeHero from "/public/illustrations/sobre-mi-hero.webp";
 import CTAWhatsAppBanner from "../components/sections/CTAWhatsAppBanner.astro";
 import parejaMensaje from "/public/illustrations/pareja-mensaje.webp";
+
 import { Image } from "astro:assets";
 
 
@@ -13,13 +16,15 @@ const ctaMensaje = "Hola profe, quiero conocerte más.";
   title="Sobre mí | Germán Riveros | Profe Germán"
   description="Soy Germán Riveros, ingeniero en informática y profesor de computación. Enseño con paciencia, experiencia técnica y accesibilidad real, especialmente en Lengua de Señas Chilena."
 >
-  <PageHero
-    kicker="Conoce al profe"
-    titulo="Sobre mí"
-    subtitulo="Soy ingeniero en informática y profesor de clases particulares. Enseño desde hace más de 15 años, siempre buscando que cada estudiante aprenda a su ritmo y sin presión."
-    ctaMensaje={ctaMensaje}
-    ctaTexto="Escríbeme por WhatsApp"
-  />
+<PageHeroProfe
+  kicker="Conoce al profe"
+  titulo="Sobre mí"
+  subtitulo="Soy ingeniero en informática y profesor de clases particulares. Enseño desde hace más de 15 años, siempre buscando que cada estudiante aprenda a su ritmo."
+  ctaMensaje={ctaMensaje}
+  ctaTexto="Escríbeme por WhatsApp"
+  imagen={profeHero}
+  imagenAlt="Germán, el profe, de pie y saludando con una mano"
+/>
 
   <!-- Sección: Quién soy -->
   <section class="container py-16 md:py-20" aria-labelledby="quien-soy-titulo">
