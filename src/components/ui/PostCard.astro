@@ -1,0 +1,51 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+  headingLevel?: "h2" | "h3";
+}
+
+const { post, headingLevel: Heading = "h2" } = Astro.props;
+const { title, description, pubDate, cover, coverAlt } = post.data;
+const fecha = pubDate.toLocaleDateString("es-CL", { dateStyle: "long" });
+---
+<Heading class="m-0 text-xl font-bold">
+  <a href={`/blog/${post.id}/`} class="text-link no-underline after:absolute after:inset-0 focus-visible:outline-none">
+    {title}
+  </a>
+</Heading>
+
+<article
+  class="card-hover relative flex h-full flex-col overflow-hidden rounded-3xl bg-white ring-1 ring-text/10 has-[a:focus-visible]:outline-3 has-[a:focus-visible]:outline-offset-4 has-[a:focus-visible]:outline-accessibility"
+>
+  {
+    cover ? (
+      <Image
+        src={cover}
+        alt={coverAlt ?? ""}
+        widths={[400, 800]}
+        sizes="(min-width: 1024px) 360px, 100vw"
+        class="aspect-[16/9] w-full bg-primary/10 object-cover"
+      />
+    ) : (
+      <div class="aspect-[16/9] w-full bg-primary/10" aria-hidden="true" />
+    )
+  }
+  <div class="flex flex-1 flex-col gap-3 p-6">
+    <time datetime={pubDate.toISOString()} class="text-base text-text/70">{fecha}</time>
+    <h2 class="m-0 text-xl font-bold">
+      <a
+        href={`/blog/${post.id}/`}
+        class="text-link no-underline after:absolute after:inset-0 focus-visible:outline-none"
+      >
+        {title}
+      </a>
+    </h2>
+    <p class="m-0">{description}</p>
+    <span class="mt-auto pt-2 font-bold underline decoration-primary decoration-2 underline-offset-4">
+      Leer artículo
+    </span>
+  </div>
+</article>

@@ -1,0 +1,143 @@
+---
+import { Image, getImage } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import Layout from "./Layout.astro";
+import { articleSchema } from "../lib/schema";
+import WhatsAppCTA from "../components/ui/WhatsAppCTA.astro";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate, updatedDate, cover, coverAlt, level } = post.data;
+
+const fecha = pubDate.toLocaleDateString("es-CL", { dateStyle: "long" });
+const actualizado = updatedDate?.toLocaleDateString("es-CL", { dateStyle: "long" });
+
+const cursos = {
+  alfabetizacion: { href: "/alfabetizacion-digital/", texto: "Conoce Alfabetización digital" },
+  autonomia: { href: "/autonomia-digital/", texto: "Conoce Autonomía digital" }, // verifica esta ruta
+};
+const curso = level ? cursos[level] : undefined;
+
+// Imagen para redes: 1200x630, igual a las medidas fijas que declara el Layout
+const ogImage = cover
+  ? (await getImage({ src: cover, width: 1200, height: 630, format: "jpg" })).src
+  : undefined;
+
+const url = new URL(`/blog/${post.id}/`, Astro.site).href;
+const schema = [
+  articleSchema({
+    title,
+    description,
+    path: `/blog/${post.id}/`,
+    image: ogImage ?? "/og.png",
+    datePublished: pubDate,
+    dateModified: updatedDate,
+  }),
+];
+---
+
+<Layout
+  title={`${title} | Profe Germán`}
+  description={description}
+  ogType="article"
+  ogImage={ogImage}
+  ogImageAlt={coverAlt}
+  schema={schema}
+>
+  <div class="container py-12 md:py-16">
+    <article class="mx-auto max-w-[65ch]">
+      <nav aria-label="Migas de pan" class="mb-6 text-base">
+        <a href="/blog/" class="text-link">← Volver al blog</a>
+      </nav>
+
+      <header class="mb-8">
+        <h1 class="m-0 text-3xl font-bold md:text-4xl">{title}</h1>
+        <p class="mt-4 text-base text-text/70">
+          <time datetime={pubDate.toISOString()}>{fecha}</time>
+          {actualizado && <span> · Actualizado el {actualizado}</span>}
+        </p>
+      </header>
+
+      {
+        cover && (
+          <Image
+            src={cover}
+            alt={coverAlt ?? ""}
+            widths={[640, 1000]}
+            sizes="(min-width: 768px) 65ch, 100vw"
+            loading="eager"
+            class="mb-10 w-full rounded-3xl bg-primary/10"
+          />
+        )
+      }
+
+      <div class="post-body">
+        <slot />
+      </div>
+
+      <aside class="mt-14 rounded-3xl bg-primary/10 p-8" aria-labelledby="post-cta">
+        <h2 id="post-cta" class="m-0 text-2xl font-bold">¿Quieres aprender con calma?</h2>
+        <p class="mt-2 mb-0">Escríbeme y cuéntame qué te gustaría aprender.</p>
+        <div class="mt-5 flex flex-wrap gap-3">
+          <WhatsAppCTA message="Hola profe, leí tu artículo y quiero saber más de las clases">
+            Escríbeme por WhatsApp
+          </WhatsAppCTA>
+          {
+            curso && (
+              <a class="button button--secondary" href={curso.href}>
+                {curso.texto}
+              </a>
+            )
+          }
+        </div>
+      </aside>
+    </article>
+  </div>
+</Layout>
+
+<style is:global>
+  /* Tipografía de lectura: pensada para adultos y personas mayores */
+  .post-body {
+    font-size: 1.1875rem;
+    line-height: 1.75;
+  }
+  .post-body > * + * {
+    margin-top: 1.25rem;
+  }
+  .post-body h2 {
+    margin-top: 2.5rem;
+    font-size: 1.625rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .post-body strong {
+    font-weight: 700;
+  }
+  /* Mismo criterio que .text-link del sitio */
+  .post-body a {
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 0.1em;
+    text-underline-offset: 0.2em;
+  }
+  .post-body a:hover {
+    color: var(--color-primary);
+  }
+  .post-body ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+  }
+  .post-body li + li {
+    margin-top: 0.5rem;
+  }
+  .post-body blockquote {
+    margin-inline: 0;
+    border-left: 0.375rem solid var(--color-primary);
+    background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+    border-radius: 0 1rem 1rem 0;
+    padding: 1.25rem 1.5rem;
+  }
+</style>

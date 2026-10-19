@@ -75,3 +75,27 @@ export const faqSchema = (faqs: { q: string; a: string }[]) => ({
     acceptedAnswer: { "@type": "Answer", text: a },
   })),
 });
+
+// Para cada artículo del blog
+export const articleSchema = (a: {
+  title: string;
+  description: string;
+  path: string;
+  image: string;
+  datePublished: Date;
+  dateModified?: Date;
+}) => ({
+  "@type": "BlogPosting",
+  "@id": `${SITE}${a.path}#articulo`,
+  headline: a.title,
+  description: a.description,
+  url: `${SITE}${a.path}`,
+  mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE}${a.path}` },
+  image: a.image.startsWith("http") ? a.image : `${SITE}${a.image}`,
+  datePublished: a.datePublished.toISOString(),
+  dateModified: (a.dateModified ?? a.datePublished).toISOString(),
+  inLanguage: "es-CL",
+  author: { "@id": IDS.person },
+  publisher: { "@id": IDS.business },
+  isPartOf: { "@id": IDS.website },
+});

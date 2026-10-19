@@ -9,10 +9,12 @@ import parejaMensaje from "/public/illustrations/pareja-mensaje.webp";
 
 import TestimoniosSection from "../components/sections/TestimoniosSection.astro";
 import CTAWhatsAppBanner from "../components/sections/CTAWhatsAppBanner.astro";
-import ContactoSection from "../components/sections/ContactoSection.astro";
-
 import FaqSection from "../components/sections/FaqSection.astro";
 import { faqGeneral } from "../data/faq";
+import LatestPosts from "../components/sections/LatestPosts.astro";
+import ContactoSection from "../components/sections/ContactoSection.astro";
+
+
 ---
 
 <Layout>
@@ -21,7 +23,6 @@ import { faqGeneral } from "../data/faq";
   <CursosGrid />
   <AccesibilidadBanner />
   <TestimoniosSection />
-
   <CTAWhatsAppBanner
     titulo="¿Empezamos?"
     texto="Escríbeme y cuéntame qué te gustaría aprender."
@@ -31,12 +32,11 @@ import { faqGeneral } from "../data/faq";
     imagenAlt="Una mujer mayor muestra un mensaje en su celular a un hombre mayor, que lo mira sonriendo"
     anclaje="cabeza"
   />
-
   <FaqSection
     titulo="Preguntas frecuentes"
     intro="Lo que suelen preguntarme antes de empezar."
     preguntas={faqGeneral}
   />
-
+  <LatestPosts />
   <ContactoSection />
 </Layout>

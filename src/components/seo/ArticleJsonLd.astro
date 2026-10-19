@@ -1,0 +1,29 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  imageUrl?: string;
+}
+
+const { post, imageUrl } = Astro.props;
+const { title, description, pubDate, updatedDate } = post.data;
+const site = Astro.site ?? new URL('https://profegerman.cl');
+const url = new URL(`/blog/${post.id}/`, site).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  dateModified: (updatedDate ?? pubDate).toISOString(),
+  inLanguage: 'es-CL',
+  mainEntityOfPage: url,
+  image: imageUrl ?? new URL('/og.png', site).href,
+  author: { '@type': 'Person', name: 'Germán Riveros' }, // ADAPTAR si prefieres "Profe Germán"
+  publisher: { '@type': 'Organization', name: 'Profe Germán', url: site.href },
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
