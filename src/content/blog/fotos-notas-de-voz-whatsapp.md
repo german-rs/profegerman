@@ -4,7 +4,7 @@ description: "Aprende a enviar fotos y mensajes de voz por WhatsApp desde tu cel
 pubDate: 2026-10-20
 tags: ["WhatsApp", "fotos", "notas de voz"]
 level: autonomia
-draft: true
+draft: false
 cover: "../../assets/blog/fotos-notas-de-voz-whatsapp.png"
 coverAlt: "Una mujer mayor sonríe mientras mira su celular, con una foto y un globo de audio flotando sobre la pantalla"
 ---
