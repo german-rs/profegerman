@@ -152,11 +152,8 @@ GitHub Actions (`withastro/action`) → GitHub Pages → dominio propio
 
 Este repo es deliberadamente independiente de
 [germanriveros.cl](https://github.com/german-rs/portafolio) — mismo
-autor, dominio, stack visual y público distintos. Ver la tabla
-comparativa en `AGENTS.md` para el detalle. Germán también da clases
-vía [Superprof](https://www.superprof.cl) en paralelo, sin reemplazo.
+autor, dominio, stack visual y público distintos.
 
 ## Licencia
 
-Proyecto personal y comercial de Germán Riveros. No es un template de
-uso libre.
+Proyecto personal y comercial de Germán Riveros.

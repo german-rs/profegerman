@@ -1,6 +1,6 @@
 ---
 
-type PilarColor = "primary" | "success" | "accessibility";
+type PilarColor = "primary" | "success" | "accessibility" | "profe";
 
 interface Pilar {
   titulo: string;
@@ -11,8 +11,8 @@ interface Pilar {
 const pilares: Pilar[] = [
   {
     titulo: "Paciencia",
-    texto: "Con calma y a tu ritmo, las veces que sea necesario.",
-    color: "primary",
+    texto: "Con calma, las veces que sea necesario.",
+    color: "profe",
   },
   {
     titulo: "Autonomía",
@@ -32,6 +32,7 @@ const estilos: Record<PilarColor, { card: string; icon: string }> = {
   primary: { card: "bg-primary/15", icon: "text-primary" },
   success: { card: "bg-success/15", icon: "text-success" },
   accessibility: { card: "bg-accessibility/15", icon: "text-accessibility" },
+  profe: { card: "bg-profe/15", icon: "text-profe" },
 };
 ---
 
@@ -48,7 +49,7 @@ const estilos: Record<PilarColor, { card: string; icon: string }> = {
             aria-hidden="true"
             class="flex h-12 w-12 items-center justify-center rounded-full bg-background"
           >
-            {pilar.color === "primary" && (
+            {pilar.color === "profe" && (
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
