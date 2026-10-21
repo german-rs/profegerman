@@ -1,0 +1,102 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/sections/PageHero.astro";
+import ParaQuienSection from "../components/sections/ParaQuienSection.astro";
+import CTAWhatsAppBanner from "../components/sections/CTAWhatsAppBanner.astro";
+import hermanaSaludando from "/public/illustrations/imagen-accesibilidad.webp";
+
+const paraQuienItems = [
+  "Eres sordo o tienes dificultades auditivas y quieres aprender a usar el computador o el celular.",
+  "Prefieres que las clases sean en Lengua de Señas Chilena.",
+  "Necesitas letra más grande y buen contraste para ver con comodidad.",
+  "Quieres repetir lo que haga falta, sin que nadie te apure.",
+];
+
+const adaptaciones = [
+  {
+    titulo: "Clases en LSCh",
+    descripcion:
+      "Puedes hacer la clase en Lengua de Señas Chilena, en persona o por videollamada.",
+  },
+  {
+    titulo: "Letra grande y buen contraste",
+    descripcion:
+      "Ajusto el tamaño del texto y los colores de tu computador o celular para que veas con comodidad.",
+  },
+  {
+    titulo: "Tiempo para repetir",
+    descripcion:
+      "Repasamos las veces que haga falta, con calma y sin que te sientas juzgado.",
+  },
+];
+
+const ctaMensaje =
+  "Hola profe, quiero saber más de las clases con apoyo en Lengua de Señas Chilena.";
+---
+
+<Layout
+  title="Clases con Lengua de Señas Chilena y accesibilidad | Profe Germán"
+  description="Clases de computación y celular con apoyo en Lengua de Señas Chilena (LSCh), letra grande, buen contraste y tiempo para repetir. Escríbeme por WhatsApp."
+>
+  <PageHero
+    kicker="Accesibilidad"
+    titulo="Clases con Lengua de Señas Chilena"
+    subtitulo="Aprende computación y celular con apoyo en LSCh, letra grande y buen contraste. Con calma, repitiendo lo que haga falta."
+    ctaMensaje={ctaMensaje}
+    ctaTexto="Escríbeme por WhatsApp"
+    secondaryHref="/alfabetizacion-digital/"
+    secondaryTexto="Conoce el curso para empezar desde cero"
+  />
+
+  <ParaQuienSection items={paraQuienItems} />
+
+  <section
+    class="reveal container py-16 md:py-20"
+    aria-labelledby="adaptaciones-titulo"
+  >
+    <h2 id="adaptaciones-titulo" class="text-2xl font-bold md:text-3xl">
+      Cómo adapto las clases
+    </h2>
+    <p class="mt-2 max-w-prose text-base">
+      Cada persona necesita algo distinto. Esto es lo que ajusto antes y durante
+      la clase.
+    </p>
+
+    <div class="mt-8 grid gap-6 md:grid-cols-3">
+      {
+        adaptaciones.map((item) => (
+          <article class="card-hover rounded-lg bg-accessibility/10 p-6">
+            <h3 class="text-xl font-bold">{item.titulo}</h3>
+            <p class="mt-3 text-base">{item.descripcion}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section
+    class="border-y border-black/10 bg-accessibility/10"
+    aria-labelledby="formacion-titulo"
+  >
+    <div class="container py-10">
+      <h2 id="formacion-titulo" class="text-xl font-bold">
+        Sigo formándome en LSCh
+      </h2>
+      <p class="mt-2 max-w-prose text-base">
+        Estudio Lengua de Señas Chilena de forma continua. Si algo todavía lo
+        estoy aprendiendo, lo conversamos con claridad y buscamos juntos la
+        mejor forma de comunicarnos.
+      </p>
+    </div>
+  </section>
+
+  <CTAWhatsAppBanner
+    titulo="¿Hablamos?"
+    texto="Escríbeme por WhatsApp y cuéntame qué te gustaría aprender. Si prefieres, coordinamos una videollamada en LSCh."
+    ctaMensaje={ctaMensaje}
+    ctaTexto="Escríbeme por WhatsApp"
+    imagen={hermanaSaludando}
+    imagenAlt="Una mujer saluda sonriendo con la mano en alto"
+    anclaje="cabeza"
+  />
+</Layout>

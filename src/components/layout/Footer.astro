@@ -5,6 +5,9 @@
  * y el color de la ola de adelante continúa como fondo de los datos del sitio.
  * Colores: cambia solo las variables de abajo, en el bloque <style>.
  */
+import { escenaPara } from "../../data/footer-escenas";
+
+const escena = escenaPara(Astro.url.pathname);
 const whatsappHref =
   "https://wa.me/56982960453?text=Hola%20profe%2C%20quiero%20saber%20m%C3%A1s%20de%20las%20clases";
 const olaPath = "M0,30 C200,60 400,0 600,30 C800,60 1000,0 1200,30 L1200,60 L0,60 Z";
@@ -42,35 +45,38 @@ const olaPath = "M0,30 C200,60 400,0 600,30 C800,60 1000,0 1200,30 L1200,60 L0,6
 
       <!-- Caja de referencia para posicionar a los personajes -->
       <div class="relative mx-auto aspect-square w-full max-w-5xl sm:aspect-[3/2] lg:aspect-[2/1]">
+        
         <!-- Círculo-sol detrás del grupo: la ola de atrás le tapa la mitad de abajo -->
         <div
-          class="sol absolute bottom-[16%] left-[-1%] z-0 aspect-square w-[72%] rounded-full sm:bottom-[32%] sm:left-[16%] sm:w-[40%] lg:bottom-[24%] lg:left-[21%] lg:w-[34%]"
+          class:list={["sol absolute z-0 aspect-square rounded-full", escena.sol]}
         >
         </div>
 
+
         <!-- Madre, padre y hermana: de cuerpo completo, la ola de adelante les tapa las piernas -->
         <img
-          src="/illustrations/despedida-grupo.webp"
+          src={escena.grupo.src}
           alt=""
-          width="1208"
-          height="1280"
-          loading="lazy"
+          width={escena.grupo.width}
+          height={escena.grupo.height}
+         loading="lazy"
           decoding="async"
-          class="absolute bottom-0 left-[2%] z-10 h-auto w-[66%] sm:left-[10%] sm:w-[52%] lg:left-[16%] lg:w-[44%]"
+          class:list={["absolute bottom-0 z-10 h-auto", escena.grupo.clases]}
         />
 
         <!-- Hermano sentado, por delante de la ola frontal y más cerca del grupo -->
-        <img
-          src="/illustrations/despedida-hermano.webp"
-          alt=""
-          width="1024"
-          height="1536"
-          loading="lazy"
-          decoding="async"
-          class="absolute bottom-[-20%] right-10 z-30 h-auto w-[38%] sm:bottom-[-30%] sm:right-[10%] sm:w-[35%] md:bottom-[-30%] lg:bottom-[-30%] lg:right-[17%] lg:w-[25%]"
-        />
+        {escena.extra && (
+          <img
+            src={escena.extra.src}
+            alt=""
+            width={escena.extra.width}
+            height={escena.extra.height}
+            loading="lazy"
+            decoding="async"
+            class:list={["absolute z-30 h-auto", escena.extra.clases]}
+          />
+        )}
       </div>
-
       <!-- Ola de adelante (quieta) -->
       <div class="capa capa-frente absolute inset-x-0 bottom-0 z-20 flex h-[10%] flex-col">
         <div class="relative h-10 shrink-0 overflow-hidden md:h-14">
