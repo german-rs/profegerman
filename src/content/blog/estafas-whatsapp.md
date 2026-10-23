@@ -2,11 +2,12 @@
 title: "5 estafas comunes por WhatsApp y cómo reconocerlas"
 description: "Aprende a reconocer las cinco estafas más frecuentes por WhatsApp y qué hacer en cada caso. Una guía clara y sin tecnicismos, para ti y tu familia."
 pubDate: 2026-10-18
+category: seguridad
 tags: ["WhatsApp", "seguridad", "estafas"]
 level: autonomia
 draft: false
 cover: "../../assets/blog/estafas-whatsapp.webp"
-coverAlt: "El profe y una mujer mayor con su celular, de pie uno junto al otro; sobre ellos, un globo de chat con un escudo y una marca de verificación"
+coverAlt: "Un número 5 grande rodeado de cinco globos de chat, cada uno con un símbolo distinto: una persona, un código, un regalo, un banco y un maletín"
 ---
  
 Un mensaje inesperado puede ponerte nervioso, y es normal. Quienes engañan por WhatsApp buscan justamente eso: que reacciones rápido y sin pensar.

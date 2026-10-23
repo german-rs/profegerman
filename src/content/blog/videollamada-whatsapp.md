@@ -2,6 +2,7 @@
 title: "Cómo hacer una videollamada por WhatsApp"
 description: "Aprende a hacer y contestar una videollamada por WhatsApp desde tu celular, con pasos simples y consejos para verte y escucharte bien."
 pubDate: 2026-10-19
+category: paso-a-paso
 tags: ["WhatsApp", "videollamadas", "celular"]
 level: autonomia
 draft: false

@@ -2,11 +2,12 @@
 title: "Cómo enviar fotos y notas de voz por WhatsApp"
 description: "Aprende a enviar fotos y mensajes de voz por WhatsApp desde tu celular, con pasos simples y sin enredos."
 pubDate: 2026-10-20
+category: paso-a-paso
 tags: ["WhatsApp", "fotos", "notas de voz"]
 level: autonomia
 draft: false
-cover: "../../assets/blog/fotos-notas-de-voz-whatsapp.png"
-coverAlt: "Una mujer mayor sonríe mientras mira su celular, con una foto y un globo de audio flotando sobre la pantalla"
+cover: "../../assets/blog/fotos-notas-de-voz-whatsapp.webp"
+coverAlt: "Una mujer mayor, de pie y sonriendo, fotografía con su celular una maceta con flores, mientras sobre ella flota un globo de nota de voz."
 ---
 
 Compartir una foto del jardín, del nieto o del almuerzo es una de las mejores cosas que puedes hacer con tu celular. Y si escribir te cansa, un mensaje de voz te permite contar lo mismo hablando.
