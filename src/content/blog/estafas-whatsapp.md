@@ -5,10 +5,10 @@ pubDate: 2026-10-18
 tags: ["WhatsApp", "seguridad", "estafas"]
 level: autonomia
 draft: false
-cover: "../../assets/blog/estafas-whatsapp.png"
+cover: "../../assets/blog/estafas-whatsapp.webp"
 coverAlt: "El profe y una mujer mayor con su celular, de pie uno junto al otro; sobre ellos, un globo de chat con un escudo y una marca de verificación"
 ---
-
+ 
 Un mensaje inesperado puede ponerte nervioso, y es normal. Quienes engañan por WhatsApp buscan justamente eso: que reacciones rápido y sin pensar.
 
 La buena noticia es que casi todas las estafas siguen el mismo patrón. Cuando lo conoces, es fácil detenerlas.
