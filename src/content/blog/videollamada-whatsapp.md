@@ -5,8 +5,8 @@ pubDate: 2026-10-19
 tags: ["WhatsApp", "videollamadas", "celular"]
 level: autonomia
 draft: false
-cover: "../../assets/blog/videollamada-whatsapp.png"
-coverAlt: "Un hombre y una mujer mayores, de pie y sonrientes, miran una ventana de videollamada en la que aparece una joven sonriendo"
+cover: "../../assets/blog/videollamada-whatsapp.webp"
+coverAlt: "Dos celulares enfrentados: en uno sonríe una mujer mayor y en el otro un joven, unidos por una línea punteada con un corazón."
 ---
 
 Una videollamada te permite ver y escuchar a tu familia aunque estén lejos. No necesitas instalar nada más: si ya usas WhatsApp, ya tienes lo necesario.
