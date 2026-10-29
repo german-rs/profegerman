@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/sections/PageHero.astro";
+import heroImg from "/public/illustrations/alfabetizacion-hero-img.webp";
 import ParaQuienSection from "../components/sections/ParaQuienSection.astro";
 
 import parejaMensaje from "/public/illustrations/pareja-mensaje.webp";
@@ -44,17 +45,19 @@ const ctaMensaje = "Hola profe, quiero aprender alfabetización digital.";
 
 <Layout
   title="Alfabetización digital para adultos y personas mayores | Profe Germán"
-  description="Clases de alfabetización digital: computador, celular, internet y correo, a tu ritmo y sin jerga. Escríbeme por WhatsApp y partimos cuando quieras."
+  description="Clases de alfabetización digital: computador, celular, internet, correo y lo que necesites. Escríbeme por WhatsApp y partimos cuando quieras."
 >
-  <PageHero
-    kicker="Curso para empezar desde cero"
-    titulo="Alfabetización digital"
-    subtitulo="Aprende a usar tu computador o celular desde cero: encender, navegar, escribir y guardar tus archivos. Paso a paso, a tu ritmo."
-    ctaMensaje={ctaMensaje}
-    ctaTexto="Quiero aprender esto"
-    secondaryHref="/autonomia-digital/"
-    secondaryTexto="¿Ya sabes lo básico? Conoce el siguiente nivel"
-  />
+<PageHero
+  kicker="Nivel 1 · Alfabetización digital"
+  titulo="Aprende a usar tu computador y tu celular desde cero"
+  subtitulo="Empezamos por lo básico: encender, navegar, escribir y guardar tus archivos. A tu ritmo y sin apuro."
+  ctaMensaje={ctaMensaje}
+  ctaTexto="Quiero aprender esto"
+  secondaryHref="/autonomia-digital/"
+  secondaryTexto="Ver el siguiente nivel"
+  imagen={heroImg}
+  imagenAlt="Un hombre mayor sentado frente a un notebook, escribiendo con un dedo y sonriendo"
+/>
 
   <ParaQuienSection items={paraQuienItems} />
 
@@ -70,7 +73,7 @@ const ctaMensaje = "Hola profe, quiero aprender alfabetización digital.";
       </h2>
 
       <p class="mt-2 max-w-prose text-base">
-        También hago clases en Lengua de Señas Chilena (LSCh).
+        También hago clases en Lengua de Señas Chilena (LSCh).&nbsp;  
         <a class="text-link" href="/accesibilidad/">
           Conoce más sobre accesibilidad
         </a>
