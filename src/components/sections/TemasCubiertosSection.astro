@@ -1,7 +1,10 @@
 ---
+type Color = "primary" | "success" | "accessibility" | "profe";
+
 interface Tema {
   titulo: string;
   descripcion: string;
+  color?: Color;
 }
 
 interface Props {
@@ -10,21 +13,35 @@ interface Props {
 }
 
 const { titulo = "Qué vamos a ver juntos", temas } = Astro.props;
+
+// Clases completas para que Tailwind las detecte en el build. No partir estos strings.
+const estilosTema: Record<Color, string> = {
+  primary: "bg-primary/15",
+  success: "bg-success/15",
+  accessibility: "bg-accessibility/15",
+  profe: "bg-profe/15",
+};
+
+// Orden en que se asignan los colores si un tema no define el suyo.
+const coloresPorDefecto: Color[] = ["primary", "success", "accessibility", "profe"];
 ---
 
 <section class="container py-16 md:py-20" aria-labelledby="temas-titulo">
   <h2 id="temas-titulo" class="text-2xl font-bold md:text-3xl">
     {titulo}
   </h2>
-
   <ul class="mt-8 grid list-none gap-6 p-0 md:grid-cols-2">
     {
-      temas.map((tema) => (
-        <li class="rounded-lg border border-black/10 bg-white/60 p-6">
-          <h3 class="text-lg font-bold">{tema.titulo}</h3>
-          <p class="mt-2 text-base">{tema.descripcion}</p>
-        </li>
-      ))
+      temas.map((tema, i) => {
+        const color =
+          tema.color ?? coloresPorDefecto[i % coloresPorDefecto.length];
+        return (
+          <li class={`card-hover rounded-lg p-6 ${estilosTema[color]}`}>
+            <h3 class="text-lg font-bold">{tema.titulo}</h3>
+            <p class="mt-2 text-base">{tema.descripcion}</p>
+          </li>
+        );
+      })
     }
   </ul>
 </section>
